@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Battle : MonoBehaviour
 {
+    public Grid grid;
+
     public GameObject spearmanPrefab;
     public GameObject archerPrefab;
 
@@ -80,23 +82,21 @@ public class Battle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        unitsObjects.Add((GameObject)Instantiate(archerPrefab));
-        unitsObjects.Add((GameObject)Instantiate(spearmanPrefab));
+        
+
+        unitsObjects.Add((GameObject)Instantiate(archerPrefab, grid.CellToWorld(new Vector3Int(0,4,0)), Quaternion.identity));
+        unitsObjects.Add((GameObject)Instantiate(spearmanPrefab, grid.CellToWorld(new Vector3Int(0,1,0)), Quaternion.identity));
 
         foreach (GameObject unitObject in unitsObjects)
             units.Add(unitObject.GetComponent<Unit>());
 
         // end of preparation
-
-
-        Debug.Log(units[0].CurrentHP);
-        Debug.Log(units[1].CurrentHP);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (units.Count == 2)
-            Fight(units[0], units[0].Attacks[0], units[1], units[1].Attacks[0]);
+        /*if (units.Count == 2)
+            Fight(units[0], units[0].Attacks[0], units[1], units[1].Attacks[0]);*/
     }
 }
