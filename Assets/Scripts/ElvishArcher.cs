@@ -8,7 +8,8 @@ public class ElvishArcher : Unit
     {
         MaxHP = 29;
         CurrentHP = MaxHP;
-        Movement = 6;
+        MaxMovement = 6;
+        CurrentMovement = MaxMovement;
 
         MaxXP = 44;
 

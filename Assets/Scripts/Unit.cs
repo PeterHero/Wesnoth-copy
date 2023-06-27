@@ -8,7 +8,8 @@ public class Unit : MonoBehaviour
     public int MaxHP { get; set; }
     private int currentHP;
     public int CurrentHP { get => currentHP; protected set { currentHP = value; } }
-    public int Movement { get; set; }
+    public int MaxMovement { get; set; }
+    public int CurrentMovement { get; set; }
     public int MaxXP { get; set; }
     public int CurrentXP { get; set; }
 

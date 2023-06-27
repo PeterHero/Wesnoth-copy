@@ -35,9 +35,24 @@ public class GridManager : MonoBehaviour
 
         highlightObject = Instantiate(highlight, grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y)), Quaternion.identity);
 
+        foreach (Tile t in tiles.Values)
+        {
+            t.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
         if (tiles[activeTile].unit != null)
         {
             HexMap.findDistances(activeTile, tiles, tiles[activeTile].unit, this);
+            foreach (Tile t in tiles.Values)
+            {
+                Debug.Log("echo");
+                if (t.distance > tiles[activeTile].unit.CurrentMovement)
+                {
+                    t.GetComponent<SpriteRenderer>().color = Color.gray;
+                    Debug.Log(t.GetComponent<SpriteRenderer>());
+                    Debug.Log(t.name);
+                }
+            }
         }
     }
 
