@@ -5,11 +5,11 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public GridManager gridManager;
-    public Vector2 coordinates;
+    public Vector2Int coordinates;
     public string type;
     public Unit unit;
 
-    public Tile(GridManager gridManager, Vector2 v)
+    public Tile(GridManager gridManager, Vector2Int v)
     {
         this.gridManager = gridManager;
         coordinates = v;

@@ -14,25 +14,31 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile water;
     [SerializeField] private Tile road;
     [SerializeField] private Tile village;
-    [SerializeField] private Tile highlight;
+    [SerializeField] private GameObject highlight;
 
     private GameObject highlightObject;
 
     private Tile[,] generateMap = new Tile[10,10];
 
-    private Dictionary<Vector2, Tile> tiles;
+    private Dictionary<Vector2Int, Tile> tiles;
 
-    public Vector2 activeTile;
+    public Vector2Int activeTile;
 
     public void TileClicked(Tile tile)
     {
         activeTile = tile.coordinates;
 
+        if (highlightObject != null)
+        {
+            Destroy(highlightObject);
+        }
+
+        highlightObject = Instantiate(highlight, grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y)), Quaternion.identity);
     }
 
     public void GenerateMap()
     {
-        tiles = new Dictionary<Vector2, Tile>();
+        tiles = new Dictionary<Vector2Int, Tile>();
 
         for (int i = 0; i < 10; i++)
         {
@@ -51,14 +57,14 @@ public class GridManager : MonoBehaviour
                     var spawnedTile = Instantiate(generateMap[i, j], grid.CellToWorld(new Vector3Int(i, j)), Quaternion.identity);
                     spawnedTile.name = $"Tile {i} {j}";
                     spawnedTile.gridManager = this;
-                    spawnedTile.coordinates = new Vector2(i, j);
-                    tiles[new Vector2(i, j)] = spawnedTile;
+                    spawnedTile.coordinates = new Vector2Int(i, j);
+                    tiles[new Vector2Int(i, j)] = spawnedTile;
                 }
             }
         }
     }
 
-    public Tile GetTileAtPosition(Vector2 pos)
+    public Tile GetTileAtPosition(Vector2Int pos)
     {
         if (tiles.TryGetValue(pos, out var tile))
         {
