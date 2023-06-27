@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class Battle : MonoBehaviour
@@ -81,8 +82,7 @@ public class Battle : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {      
 
         unitsObjects.Add((GameObject)Instantiate(archerPrefab, grid.CellToWorld(new Vector3Int(0,4,0)), Quaternion.identity));
         unitsObjects.Add((GameObject)Instantiate(spearmanPrefab, grid.CellToWorld(new Vector3Int(0,1,0)), Quaternion.identity));
