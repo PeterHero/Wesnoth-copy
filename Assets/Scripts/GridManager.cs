@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
-    [SerializeField] private Grid grid;
+    public Grid grid;
 
     [SerializeField] private Tile grass;
     [SerializeField] private Tile forest;
@@ -20,7 +20,7 @@ public class GridManager : MonoBehaviour
 
     private Tile[,] generateMap = new Tile[10,10];
 
-    private Dictionary<Vector2Int, Tile> tiles;
+    public Dictionary<Vector2Int, Tile> tiles;
 
     public Vector2Int activeTile;
 
@@ -34,6 +34,11 @@ public class GridManager : MonoBehaviour
         }
 
         highlightObject = Instantiate(highlight, grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y)), Quaternion.identity);
+
+        if (tiles[activeTile].unit != null)
+        {
+            HexMap.findDistances(activeTile, tiles, tiles[activeTile].unit, this);
+        }
     }
 
     public void GenerateMap()

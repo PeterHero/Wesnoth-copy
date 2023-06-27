@@ -123,152 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &264838391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 264838393}
-  - component: {fileID: 264838392}
-  - component: {fileID: 264838394}
-  m_Layer: 0
-  m_Name: Battle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &264838392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264838391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3a763471574e97469c220a2b2d516a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grid: {fileID: 869005063}
-  spearmanPrefab: {fileID: 1255362895475547433, guid: 6c23d92b6776bf449b8060c8907c9dab, type: 3}
-  archerPrefab: {fileID: 3837807521762785392, guid: baa3f9846c71f6e49a888a1ee6707450, type: 3}
---- !u!4 &264838393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264838391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33670062, y: -0.23389989, z: -0.0068400595}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &264838394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264838391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 58092dfa6e5131a428ab5a189ac4949c, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 445e14d2-0d1c-4e4b-916e-3292d17ae72e
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 45d07552-dbed-406d-980b-692d197e63e5
-    m_ActionName: Player/Look[/Mouse/delta]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7928a568-6243-4faa-a7eb-11e657027fc8
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 264838392}
-        m_TargetAssemblyTypeName: Battle, Assembly-CSharp
-        m_MethodName: SpacePressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 572d41ca-d97d-4f1d-8270-c56e93feec73
-    m_ActionName: Player/Fight[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 292bff19-4df5-4cb9-b51e-966d82795a04
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d5137c11-005b-4d17-ad21-59ebfd988e53
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d94098a4-5eb3-4a8d-a6a1-bd51fd1fd9b3
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 51c0ce3b-66dd-488c-a4de-0088739944a7
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 006f83e2-d2a7-4f1f-813c-2e740ef34f75
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9bd2ea8a-340d-4533-93a1-8e06eb422365
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2b56ba88-0b23-435c-a660-9f10b3d77d78
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 02de364e-ecd5-4ddd-be27-782e2275fe57
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ec1bd464-c8d5-4d3a-a2fd-43c17c789926
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 572bd981-f990-4247-afd8-6d0fe2d14562
-    m_ActionName: UI/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,6 +218,7 @@ GameObject:
   - component: {fileID: 693104116}
   - component: {fileID: 693104115}
   - component: {fileID: 693104117}
+  - component: {fileID: 693104118}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -383,7 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a9528cd33bb4d4b955c9246b3e2c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 869005063}
   gridManager: {fileID: 693104117}
+  battle: {fileID: 693104118}
 --- !u!4 &693104116
 Transform:
   m_ObjectHideFlags: 0
@@ -397,7 +254,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &693104117
 MonoBehaviour:
@@ -411,15 +268,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe6f3007d3a4d24fb79be89c31db2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid: {fileID: 869005063}
+  grid: {fileID: 0}
   grass: {fileID: 4244520136509256083, guid: e8d5585ad6057cd4e910d340689c65c7, type: 3}
   forest: {fileID: 2757225403032544525, guid: 18bcb5a41b6edca49bcc76d16d785f26, type: 3}
   hill: {fileID: 3187024639105318840, guid: 98c0f9baddb443b43b212c2d81536737, type: 3}
   water: {fileID: 1515769446353660791, guid: ac4fb4334270793459dfa4041a4bd862, type: 3}
   road: {fileID: 7157659568997220913, guid: 503baec031ea70c42a85731da49ac2c0, type: 3}
   village: {fileID: 1458305669684933312, guid: 5cd9b281ba3e5df4a84733a4a84c68e4, type: 3}
-  highlight: {fileID: 0}
+  highlight: {fileID: 779876822630184457, guid: 36e08e6453552db4d8bd3c3565f24e7c, type: 3}
   activeTile: {x: 0, y: 0}
+--- !u!114 &693104118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693104114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3a763471574e97469c220a2b2d516a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  gridManager: {fileID: 0}
+  spearmanPrefab: {fileID: 2466213797818007258, guid: 6c23d92b6776bf449b8060c8907c9dab, type: 3}
+  archerPrefab: {fileID: 3837807521762785393, guid: baa3f9846c71f6e49a888a1ee6707450, type: 3}
 --- !u!1 &869005062
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,5 +335,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

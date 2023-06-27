@@ -8,6 +8,7 @@ public class Spearman : Unit
     {
         MaxHP = 36;
         CurrentHP = MaxHP;
+        Movement = 5;
 
         MaxXP = 42;
 

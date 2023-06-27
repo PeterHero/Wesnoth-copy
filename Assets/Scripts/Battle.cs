@@ -6,19 +6,20 @@ using UnityEngine;
 public class Battle : MonoBehaviour
 {
     public Grid grid;
+    public GridManager gridManager;
 
-    public GameObject spearmanPrefab;
-    public GameObject archerPrefab;
+    public Unit spearmanPrefab;
+    public Unit archerPrefab;
 
     List<GameObject> unitsObjects = new List<GameObject>();
     List<Unit> units = new List<Unit>();
 
     public Battle()
     {
-        
+
     }
 
-    public void Fight(Unit attacker, Attack attackerAttack, Unit defender, Attack defenderAttack=null)
+    public void Fight(Unit attacker, Attack attackerAttack, Unit defender, Attack defenderAttack = null)
     {
         int attackerCounter = attackerAttack.count;
 
@@ -28,7 +29,7 @@ public class Battle : MonoBehaviour
         else
             defenderCounter = defenderAttack.count;
 
-        while(attackerCounter > 0 || defenderCounter > 0)
+        while (attackerCounter > 0 || defenderCounter > 0)
         {
             if (attackerCounter > 0)
             {
@@ -60,7 +61,7 @@ public class Battle : MonoBehaviour
 
     }
 
-    private void HandleDeathOfUnit(Unit deadUnit, Unit killerUnit=null)
+    private void HandleDeathOfUnit(Unit deadUnit, Unit killerUnit = null)
     {
         Debug.Log($"{deadUnit} was killed by {killerUnit}");
 
@@ -75,28 +76,16 @@ public class Battle : MonoBehaviour
 
     }
 
-    public void SpacePressed()
+    public void CreateUnit(Unit unit, int x, int y)
     {
-        //Fight(units[0], units[1]);
+        var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
+        gridManager.tiles[new Vector2Int(x, y)].unit = unit;
+        units.Add(unit);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {      
-
-        unitsObjects.Add((GameObject)Instantiate(archerPrefab, grid.CellToWorld(new Vector3Int(0,4,0)), Quaternion.identity));
-        unitsObjects.Add((GameObject)Instantiate(spearmanPrefab, grid.CellToWorld(new Vector3Int(0,1,0)), Quaternion.identity));
-
-        foreach (GameObject unitObject in unitsObjects)
-            units.Add(unitObject.GetComponent<Unit>());
-
-        // end of preparation
-    }
-
-    // Update is called once per frame
-    void Update()
+    public void GenerateUnits()
     {
-        /*if (units.Count == 2)
-            Fight(units[0], units[0].Attacks[0], units[1], units[1].Attacks[0]);*/
+        CreateUnit(archerPrefab, 1, 1);
+        CreateUnit(spearmanPrefab, 2, 3);
     }
 }

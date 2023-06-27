@@ -60,6 +60,72 @@ public class HexMap
         return adjencentTiles;
     }
 
+    public static List<Vector2Int> GetAdjencentTiles(Vector2Int thisTile)
+    {
+        OffsetCoordinates thisCoord = new OffsetCoordinates(thisTile.y, thisTile.x);
+        HexCoordinates thisHex = OddqToAxial(thisCoord);
+
+        List<HexCoordinates> adjecentHexes = GetAdjencentTiles(thisHex);
+        List<Vector2Int> adjecentTiles = new List<Vector2Int>();
+
+        foreach (var hex in adjecentHexes)
+        {
+            adjecentTiles.Add(new Vector2Int(AxialToOddq(hex).row, AxialToOddq(hex).col));
+        }
+
+        return adjecentTiles;
+    }
+
+    public static void findDistances(Vector2Int startingTile, Dictionary<Vector2Int, Tile> tiles, Unit unit, GridManager gridManager)
+    {
+        // Dijkstra
+        // heap of reachable tiles
+
+        List<Tile> openTiles = new List<Tile>();
+
+        foreach (Tile tile in tiles.Values)
+        {
+            tile.distance = -1;
+            tile.tileState = Tile.TileState.unseen;
+        }
+
+        tiles[startingTile].distance = 0;
+        tiles[startingTile].tileState = Tile.TileState.open;
+        openTiles.Add(tiles[startingTile]);
+
+        while (openTiles.Count != 0)
+        {
+            openTiles.Sort(new TileComparer());
+            Tile currentTile = openTiles[0];
+            openTiles.RemoveAt(0);
+            List<Vector2Int> adjecentTiles = GetAdjencentTiles(currentTile.coordinates);
+
+            foreach (Vector2Int tileCoord in adjecentTiles)
+            {
+                Tile adjecentTile = gridManager.GetTileAtPosition(tileCoord);
+
+                if (adjecentTile == null)
+                    continue;
+
+                if (adjecentTile.tileState == Tile.TileState.unseen)
+                {
+                    adjecentTile.tileState = Tile.TileState.open;
+                    openTiles.Add(adjecentTile);
+                    adjecentTile.distance = currentTile.distance + 1; // will be changed based on the terrain
+                }
+                else if (adjecentTile.tileState == Tile.TileState.open)
+                {
+                    if (currentTile.distance + 1 < adjecentTile.distance) // to change
+                    {
+                        adjecentTile.distance = currentTile.distance + 1; // to change
+                    }
+                }
+            }
+
+            currentTile.tileState = Tile.TileState.closed;
+        }
+
+    }
 
 
 }
