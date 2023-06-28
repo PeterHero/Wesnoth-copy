@@ -79,13 +79,14 @@ public class Battle : MonoBehaviour
     public void CreateUnit(Unit unit, int x, int y)
     {
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
-        gridManager.tiles[new Vector2Int(x, y)].unit = unit;
-        units.Add(unit);
+        gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
+        units.Add(newUnit);
     }
 
     public void GenerateUnits()
     {
         CreateUnit(archerPrefab, 1, 1);
+        CreateUnit(archerPrefab, 1, 2);
         CreateUnit(spearmanPrefab, 2, 3);
     }
 }

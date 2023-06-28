@@ -23,6 +23,7 @@ public class GridManager : MonoBehaviour
     public Dictionary<Vector2Int, Tile> tiles;
 
     public Vector2Int activeTile;
+    public Vector2Int activeUnit;
 
     public void TileClicked(Tile tile)
     {
@@ -39,21 +40,37 @@ public class GridManager : MonoBehaviour
         {
             t.GetComponent<SpriteRenderer>().color = Color.white;
         }
-
-        if (tiles[activeTile].unit != null)
+        
+        if (tiles[activeTile].unit == null)
         {
-            HexMap.findDistances(activeTile, tiles, tiles[activeTile].unit, this);
-            foreach (Tile t in tiles.Values)
+            if (tiles[activeUnit].unit != null)
             {
-                Debug.Log("echo");
-                if (t.distance > tiles[activeTile].unit.CurrentMovement)
+                if (tiles[activeTile].distance <= tiles[activeUnit].unit.CurrentMovement)
                 {
-                    t.GetComponent<SpriteRenderer>().color = Color.gray;
-                    Debug.Log(t.GetComponent<SpriteRenderer>());
-                    Debug.Log(t.name);
+                    MoveUnit(tiles[activeUnit], tiles[activeTile]);
                 }
             }
         }
+        else
+        {
+            activeUnit = activeTile;
+            HexMap.findDistances(activeTile, tiles, tiles[activeUnit].unit, this);
+            foreach (Tile t in tiles.Values)
+            {
+                if (t.distance > tiles[activeUnit].unit.CurrentMovement)
+                {
+                    t.GetComponent<SpriteRenderer>().color = Color.gray;
+                }
+            }
+        }
+    }
+
+    public void MoveUnit(Tile oldTile, Tile newTile)
+    {
+        oldTile.unit.transform.position = grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y));
+        oldTile.unit.CurrentMovement -= newTile.distance;
+        newTile.unit = oldTile.unit;
+        oldTile.unit = null;
     }
 
     public void GenerateMap()

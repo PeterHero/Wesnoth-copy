@@ -20,6 +20,6 @@ public class Spearman : Unit
         Resistence = 0;
 
         Attacks.Add(new Attack("spear", 7, 3, Attack.AttackForm.melee));
-
+        
     }
 }
