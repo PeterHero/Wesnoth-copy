@@ -40,7 +40,6 @@ public class Battle : MonoBehaviour
                     HandleDeathOfUnit(defender, attacker);
                     return;
                 }
-                Debug.Log($"defender: {defender.CurrentHP}");
             }
 
             if (defenderCounter > 0)
@@ -52,7 +51,6 @@ public class Battle : MonoBehaviour
                     HandleDeathOfUnit(attacker, defender);
                     return;
                 }
-                Debug.Log($"atacker: {attacker.CurrentHP}");
             }
         }
 

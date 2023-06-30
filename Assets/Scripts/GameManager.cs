@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         gridManager.grid = grid;
         gridManager.canvasManager = canvasManager;
+        gridManager.battle = battle;
         battle.grid = grid;
         battle.gridManager = gridManager;
 

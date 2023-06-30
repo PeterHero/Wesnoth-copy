@@ -9,6 +9,7 @@ public class GridManager : MonoBehaviour
 {
     public Grid grid;
     public CanvasManager canvasManager;
+    public Battle battle;
 
     [SerializeField] private Tile grass;
     [SerializeField] private Tile forest;
@@ -24,18 +25,19 @@ public class GridManager : MonoBehaviour
 
     public Dictionary<Vector2Int, Tile> tiles;
 
-    public Vector2Int activeTile;
-    public Vector2Int activeUnit;
+    private Vector2Int ActiveTile;
 
-    public void TileHovered(Tile tile)
+    private Vector2Int activeUnit;
+    private Vector2Int ActiveUnit
     {
-        highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
-        
-        if (tile.unit != null)
+        get => activeUnit;
+        set
         {
-            displayUnitStats(tile.unit);
+            activeUnit = value;
+            isActiveUnitSet = true;
         }
     }
+    public bool isActiveUnitSet;
 
     private void displayUnitStats(Unit unit)
     {
@@ -47,42 +49,75 @@ public class GridManager : MonoBehaviour
         canvasManager.Level = $"lvl {unit.Level}";
     }
 
+    public void TileHovered(Tile tile)
+    {
+        highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
+        
+        if (tile.unit != null)
+        {
+            displayUnitStats(tile.unit);
+        }
+    }
+
+    private bool isAdjecent(Vector2Int v1, Vector2Int v2)
+    {
+        return HexMap.GetAdjencentTiles(v1).Contains(v2);
+    }
+
+    private void handleUnitDistances()
+    {
+        HexMap.findDistances(ActiveTile, tiles, tiles[ActiveUnit].unit, this);
+        foreach (Tile t in tiles.Values)
+        {
+            if (t.distance > tiles[ActiveUnit].unit.CurrentMovement)
+            {
+                t.GetComponent<SpriteRenderer>().color = Color.gray;
+            }
+        }
+    }
+
     public void TileClicked(Tile tile)
     {
-        activeTile = tile.coordinates;
+        ActiveTile = tile.coordinates;
 
         foreach (Tile t in tiles.Values)
         {
             t.GetComponent<SpriteRenderer>().color = Color.white;
         }
         
-        if (tiles[activeTile].unit == null)
+        if (tiles[ActiveTile].unit == null)
         {
-            if (tiles[activeUnit].unit != null)
+            if (isActiveUnitSet)
             {
-                if (tiles[activeTile].distance <= tiles[activeUnit].unit.CurrentMovement)
+                if (tiles[ActiveTile].distance <= tiles[ActiveUnit].unit.CurrentMovement)
                 {
-                    MoveUnit(tiles[activeUnit], tiles[activeTile]);
+                    MoveUnit(tiles[ActiveUnit], tiles[ActiveTile]);
+                    isActiveUnitSet = false;
+                }
+                else
+                {
+                    ActiveUnit = ActiveTile;
                 }
             }
         }
-        else
+        else // clicked tile with a unit
         {
-            activeUnit = activeTile;
-            HexMap.findDistances(activeTile, tiles, tiles[activeUnit].unit, this);
-            foreach (Tile t in tiles.Values)
+            if (isActiveUnitSet && isAdjecent(ActiveUnit, ActiveTile))
             {
-                if (t.distance > tiles[activeUnit].unit.CurrentMovement)
-                {
-                    t.GetComponent<SpriteRenderer>().color = Color.gray;
-                }
+                battle.Fight(tiles[ActiveUnit].unit, tiles[ActiveUnit].unit.Attacks[0], tiles[ActiveTile].unit, tiles[ActiveTile].unit.Attacks[0]);
+                isActiveUnitSet = false;
+            }
+            else
+            {
+                ActiveUnit = ActiveTile;
+                handleUnitDistances();
             }
         }
     }
 
     public void MoveUnit(Tile oldTile, Tile newTile)
     {
-        oldTile.unit.transform.position = grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y));
+        oldTile.unit.transform.position = grid.CellToWorld(new Vector3Int(ActiveTile.x, ActiveTile.y));
         oldTile.unit.CurrentMovement -= newTile.distance;
         newTile.unit = oldTile.unit;
         oldTile.unit = null;
