@@ -271,7 +271,7 @@ MonoBehaviour:
   grid: {fileID: 0}
   grass: {fileID: 4244520136509256083, guid: e8d5585ad6057cd4e910d340689c65c7, type: 3}
   forest: {fileID: 2757225403032544525, guid: 18bcb5a41b6edca49bcc76d16d785f26, type: 3}
-  hill: {fileID: 3187024639105318840, guid: 98c0f9baddb443b43b212c2d81536737, type: 3}
+  hills: {fileID: 3187024639105318840, guid: 98c0f9baddb443b43b212c2d81536737, type: 3}
   water: {fileID: 1515769446353660791, guid: ac4fb4334270793459dfa4041a4bd862, type: 3}
   road: {fileID: 7157659568997220913, guid: 503baec031ea70c42a85731da49ac2c0, type: 3}
   village: {fileID: 1458305669684933312, guid: 5cd9b281ba3e5df4a84733a4a84c68e4, type: 3}

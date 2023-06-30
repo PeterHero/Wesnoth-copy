@@ -5,10 +5,11 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public enum TileState { unseen, open, closed}
+    public enum TerrainType { castle, flat, forest, hills, village, water}
 
     public GridManager gridManager;
     public Vector2Int coordinates;
-    public string type;
+    public TerrainType terrain;
     public Unit unit;
 
     public int distance;
@@ -23,6 +24,11 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         gridManager.TileClicked(this);
+    }
+
+    private void OnMouseOver()
+    {
+        gridManager.TileHovered(this);
     }
 }
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -10,6 +9,8 @@ public class Unit : MonoBehaviour
     public int CurrentHP { get => currentHP; protected set { currentHP = value; } }
     public int MaxMovement { get; set; }
     public int CurrentMovement { get; set; }
+
+    public Dictionary<Tile.TerrainType, int> movementCost = new Dictionary<Tile.TerrainType, int>();
     public int MaxXP { get; set; }
     public int CurrentXP { get; set; }
 

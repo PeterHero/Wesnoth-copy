@@ -107,17 +107,18 @@ public class HexMap
                 if (adjecentTile == null)
                     continue;
 
+                int possibleDistance = currentTile.distance + unit.movementCost[adjecentTile.terrain];
                 if (adjecentTile.tileState == Tile.TileState.unseen)
                 {
                     adjecentTile.tileState = Tile.TileState.open;
                     openTiles.Add(adjecentTile);
-                    adjecentTile.distance = currentTile.distance + 1; // will be changed based on the terrain
+                    adjecentTile.distance = possibleDistance; // will be changed based on the terrain
                 }
                 else if (adjecentTile.tileState == Tile.TileState.open)
                 {
-                    if (currentTile.distance + 1 < adjecentTile.distance) // to change
+                    if (possibleDistance < adjecentTile.distance) // to change
                     {
-                        adjecentTile.distance = currentTile.distance + 1; // to change
+                        adjecentTile.distance = possibleDistance; // to change
                     }
                 }
             }

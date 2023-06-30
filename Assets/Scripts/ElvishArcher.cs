@@ -10,6 +10,12 @@ public class ElvishArcher : Unit
         CurrentHP = MaxHP;
         MaxMovement = 6;
         CurrentMovement = MaxMovement;
+        movementCost.Add(Tile.TerrainType.castle, 1);
+        movementCost.Add(Tile.TerrainType.flat, 1);
+        movementCost.Add(Tile.TerrainType.forest, 1);
+        movementCost.Add(Tile.TerrainType.hills, 2);
+        movementCost.Add(Tile.TerrainType.village, 1);
+        movementCost.Add(Tile.TerrainType.water, 3);
 
         MaxXP = 44;
 

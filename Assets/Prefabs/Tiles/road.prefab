@@ -100,8 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 0}
   coordinates: {x: 0, y: 0}
-  type: road
+  terrain: 0
   unit: {fileID: 0}
+  distance: 0
+  tileState: 0
 --- !u!60 &7257564678384348108
 PolygonCollider2D:
   m_ObjectHideFlags: 0

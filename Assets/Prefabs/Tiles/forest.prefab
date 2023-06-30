@@ -100,8 +100,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 0}
   coordinates: {x: 0, y: 0}
-  type: forest
+  terrain: 2
   unit: {fileID: 0}
+  distance: 0
+  tileState: 0
 --- !u!60 &750195234783642221
 PolygonCollider2D:
   m_ObjectHideFlags: 0

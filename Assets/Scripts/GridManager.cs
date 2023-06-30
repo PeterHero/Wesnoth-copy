@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private Tile grass;
     [SerializeField] private Tile forest;
-    [SerializeField] private Tile hill;
+    [SerializeField] private Tile hills;
     [SerializeField] private Tile water;
     [SerializeField] private Tile road;
     [SerializeField] private Tile village;
@@ -25,16 +25,13 @@ public class GridManager : MonoBehaviour
     public Vector2Int activeTile;
     public Vector2Int activeUnit;
 
+    public void TileHovered(Tile tile)
+    {
+        highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
+    }
     public void TileClicked(Tile tile)
     {
         activeTile = tile.coordinates;
-
-        if (highlightObject != null)
-        {
-            Destroy(highlightObject);
-        }
-
-        highlightObject = Instantiate(highlight, grid.CellToWorld(new Vector3Int(activeTile.x, activeTile.y)), Quaternion.identity);
 
         foreach (Tile t in tiles.Values)
         {
@@ -73,17 +70,22 @@ public class GridManager : MonoBehaviour
         oldTile.unit = null;
     }
 
-    public void GenerateMap()
+    private void fillGenerateMap()
     {
-        tiles = new Dictionary<Vector2Int, Tile>();
-
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                generateMap[i, j] = grass;
+                generateMap[i, j] = (j == 4 || j == 5) ? hills : grass;
             }
         }
+    }
+
+    public void GenerateMap()
+    {
+        tiles = new Dictionary<Vector2Int, Tile>();
+
+        fillGenerateMap();
 
         for (int i = 0; i < generateMap.GetLength(0); i++)
         {
@@ -99,6 +101,8 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+
+        highlightObject = Instantiate(highlight, grid.CellToWorld(new Vector3Int(0, 0)), Quaternion.identity);
     }
 
     public Tile GetTileAtPosition(Vector2Int pos)
