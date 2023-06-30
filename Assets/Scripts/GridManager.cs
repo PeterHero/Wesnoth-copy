@@ -121,6 +121,8 @@ public class GridManager : MonoBehaviour
         oldTile.unit.CurrentMovement -= newTile.distance;
         newTile.unit = oldTile.unit;
         oldTile.unit = null;
+
+        newTile.unit.setDefense(newTile.terrain);
     }
 
     private void fillGenerateMap()
@@ -132,6 +134,8 @@ public class GridManager : MonoBehaviour
                 generateMap[i, j] = (j == 4 || j == 5) ? hills : grass;
             }
         }
+
+        generateMap[3, 3] = forest;
     }
 
     public void GenerateMap()

@@ -21,7 +21,13 @@ public class Spearman : Unit
 
         Level = 1;
 
-        Defence = 40;
+        defence.Add(Tile.TerrainType.castle, 60);
+        defence.Add(Tile.TerrainType.flat, 40);
+        defence.Add(Tile.TerrainType.forest, 50);
+        defence.Add(Tile.TerrainType.hills, 50);
+        defence.Add(Tile.TerrainType.village, 60);
+        defence.Add(Tile.TerrainType.water, 20);
+
         Resistence = 0;
 
         Attacks.Add(new Attack("spear", 7, 3, Attack.AttackForm.melee));

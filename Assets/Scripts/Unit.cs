@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
 
     public int Level { get; set; }
 
+    public Dictionary<Tile.TerrainType, int> defence = new Dictionary<Tile.TerrainType, int>();
     public int Defence { get; set; }
     public int Resistence { get; set; }
 
@@ -50,17 +51,8 @@ public class Unit : MonoBehaviour
             return false;
     }
 
-    /*
-    // Start is called before the first frame update
-    void Start()
+    public void setDefense(Tile.TerrainType terrain)
     {
-        
+        Defence = defence[terrain];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    */
 }
