@@ -8,11 +8,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Grid grid;
     [SerializeField] private GridManager gridManager;
     [SerializeField] private Battle battle;
+    [SerializeField] private CanvasManager canvasManager;
 
     // Start is called before the first frame update
     void Start()
     {
         gridManager.grid = grid;
+        gridManager.canvasManager = canvasManager;
         battle.grid = grid;
         battle.gridManager = gridManager;
 

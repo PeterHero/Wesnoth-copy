@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.WSA;
 
 public class GridManager : MonoBehaviour
 {
     public Grid grid;
+    public CanvasManager canvasManager;
 
     [SerializeField] private Tile grass;
     [SerializeField] private Tile forest;
@@ -28,7 +30,23 @@ public class GridManager : MonoBehaviour
     public void TileHovered(Tile tile)
     {
         highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
+        
+        if (tile.unit != null)
+        {
+            displayUnitStats(tile.unit);
+        }
     }
+
+    private void displayUnitStats(Unit unit)
+    {
+        canvasManager.Type = unit.name;
+        canvasManager.Health = $"HP {unit.CurrentHP}/{unit.MaxHP}";
+        canvasManager.Experience = $"XP {unit.CurrentXP}/{unit.MaxXP}";
+        canvasManager.Movement = $"MP {unit.CurrentMovement}/{unit.MaxMovement}"; ;
+        canvasManager.Defence = $"def {unit.Defence} %";
+        canvasManager.Level = $"lvl {unit.Level}";
+    }
+
     public void TileClicked(Tile tile)
     {
         activeTile = tile.coordinates;
