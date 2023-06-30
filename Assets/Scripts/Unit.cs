@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public string UnitTypeName { get; set; }
+
     public int MaxHP { get; set; }
     private int currentHP;
     public int CurrentHP { get => currentHP; protected set { currentHP = value; } }

@@ -6,6 +6,8 @@ public class ElvishArcher : Unit
 {
     public ElvishArcher()
     {
+        UnitTypeName = "Elvish Archer";
+
         MaxHP = 29;
         CurrentHP = MaxHP;
         MaxMovement = 6;

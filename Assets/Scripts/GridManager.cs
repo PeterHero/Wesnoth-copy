@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour
 
     private void displayUnitStats(Unit unit)
     {
-        canvasManager.Type = unit.name;
+        canvasManager.Type = unit.UnitTypeName;
         canvasManager.Health = $"HP {unit.CurrentHP}/{unit.MaxHP}";
         canvasManager.Experience = $"XP {unit.CurrentXP}/{unit.MaxXP}";
         canvasManager.Movement = $"MP {unit.CurrentMovement}/{unit.MaxMovement}"; ;

@@ -6,6 +6,8 @@ public class Spearman : Unit
 {
     public Spearman()
     {
+        UnitTypeName = "Spearman";
+
         MaxHP = 36;
         CurrentHP = MaxHP;
         MaxMovement = 5;
