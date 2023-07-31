@@ -9,9 +9,7 @@ public class ElvishArcher : Unit
         UnitTypeName = "Elvish Archer";
 
         MaxHP = 29;
-        CurrentHP = MaxHP;
         MaxMovement = 6;
-        CurrentMovement = MaxMovement;
         movementCost.Add(Tile.TerrainType.castle, 1);
         movementCost.Add(Tile.TerrainType.flat, 1);
         movementCost.Add(Tile.TerrainType.forest, 1);

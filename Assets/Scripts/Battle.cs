@@ -79,6 +79,7 @@ public class Battle : MonoBehaviour
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
+        newUnit.setup(true);
         units.Add(newUnit);
     }
 

@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
     public int MaxMovement { get; set; }
     public int CurrentMovement { get; set; }
 
+    public bool CanAttack { get; set; }
+
     public Dictionary<Tile.TerrainType, int> movementCost = new Dictionary<Tile.TerrainType, int>();
     public int MaxXP { get; set; }
     public int CurrentXP { get; set; }
@@ -56,5 +58,20 @@ public class Unit : MonoBehaviour
     public void setDefense(Tile.TerrainType terrain)
     {
         Defence = defence[terrain];
+    }
+
+    public void setup(bool isAvaliable = false)
+    {
+        CurrentHP = MaxHP;
+        if (isAvaliable)
+        {
+            CurrentMovement = MaxMovement;
+            CanAttack = true;
+        }
+        else
+        {
+            CurrentMovement = 0;
+            CanAttack = false;
+        }
     }
 }

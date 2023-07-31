@@ -104,7 +104,14 @@ public class GridManager : MonoBehaviour
         {
             if (isActiveUnitSet && isAdjecent(ActiveUnit, ActiveTile))
             {
-                battle.Fight(tiles[ActiveUnit].unit, tiles[ActiveUnit].unit.Attacks[0], tiles[ActiveTile].unit, tiles[ActiveTile].unit.Attacks[0]);
+                if (tiles[ActiveUnit].unit.CanAttack)
+                {
+                    // ActiveUnit = attacker, ActiveTile = defenders
+                    battle.Fight(tiles[ActiveUnit].unit, tiles[ActiveUnit].unit.Attacks[0], tiles[ActiveTile].unit, tiles[ActiveTile].unit.Attacks[0]);
+                    tiles[ActiveUnit].unit.CurrentMovement = 0;
+                    tiles[ActiveUnit].unit.CanAttack = false;
+                }
+                
                 isActiveUnitSet = false;
             }
             else

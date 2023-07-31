@@ -9,9 +9,7 @@ public class Spearman : Unit
         UnitTypeName = "Spearman";
 
         MaxHP = 36;
-        CurrentHP = MaxHP;
         MaxMovement = 5;
-        CurrentMovement = MaxMovement;
         movementCost.Add(Tile.TerrainType.castle, 1);
         movementCost.Add(Tile.TerrainType.flat, 1);
         movementCost.Add(Tile.TerrainType.forest, 2);
