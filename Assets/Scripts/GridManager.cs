@@ -53,9 +53,19 @@ public class GridManager : MonoBehaviour
     {
         highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
         
+        if (!isActiveUnitSet)
+        {
+            CleanTileColoring();
+        }
+
         if (tile.unit != null)
         {
             displayUnitStats(tile.unit);
+            if (!isActiveUnitSet)
+            {
+                CleanTileColoring();
+                handleUnitDistances(tile.coordinates);
+            }
         }
     }
 
@@ -64,12 +74,12 @@ public class GridManager : MonoBehaviour
         return HexMap.GetAdjencentTiles(v1).Contains(v2);
     }
 
-    private void handleUnitDistances()
+    private void handleUnitDistances(Vector2Int startTile)
     {
-        HexMap.findDistances(ActiveTile, tiles, tiles[ActiveUnit].unit, this);
+        HexMap.findDistances(startTile, tiles, tiles[startTile].unit, this);
         foreach (Tile t in tiles.Values)
         {
-            if (t.distance > tiles[ActiveUnit].unit.CurrentMovement)
+            if (t.distance > tiles[startTile].unit.CurrentMovement)
             {
                 t.GetComponent<SpriteRenderer>().color = Color.gray;
             }
@@ -80,11 +90,9 @@ public class GridManager : MonoBehaviour
     {
         ActiveTile = tile.coordinates;
 
-        foreach (Tile t in tiles.Values)
-        {
-            t.GetComponent<SpriteRenderer>().color = Color.white;
-        }
-        
+        CleanTileColoring();
+
+
         if (tiles[ActiveTile].unit == null)
         {
             if (isActiveUnitSet)
@@ -96,17 +104,17 @@ public class GridManager : MonoBehaviour
                 }
                 else
                 {
-                    ActiveUnit = ActiveTile;
+                    isActiveUnitSet = false;
                 }
             }
         }
         else // clicked tile with a unit
         {
-            if (isActiveUnitSet && isAdjecent(ActiveUnit, ActiveTile))
+            if (isActiveUnitSet && isAdjecent(ActiveUnit, ActiveTile) && tiles[ActiveUnit].unit.Player != tiles[ActiveTile].unit.Player)
             {
                 if (tiles[ActiveUnit].unit.CanAttack)
                 {
-                    // ActiveUnit = attacker, ActiveTile = defenders
+                    // ActiveUnit = attacker, ActiveTile = defender
                     battle.Fight(tiles[ActiveUnit].unit, tiles[ActiveUnit].unit.Attacks[0], tiles[ActiveTile].unit, tiles[ActiveTile].unit.Attacks[0]);
                     tiles[ActiveUnit].unit.CurrentMovement = 0;
                     tiles[ActiveUnit].unit.CanAttack = false;
@@ -116,8 +124,14 @@ public class GridManager : MonoBehaviour
             }
             else
             {
+                if (tiles[ActiveTile].unit.Player != battle.playerOnTurn)
+                {
+                    isActiveUnitSet = false;
+                    return;
+                }
+
                 ActiveUnit = ActiveTile;
-                handleUnitDistances();
+                handleUnitDistances(ActiveUnit);
             }
         }
     }
@@ -177,5 +191,13 @@ public class GridManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void CleanTileColoring()
+    {
+        foreach (Tile t in tiles.Values)
+        {
+            t.GetComponent<SpriteRenderer>().color = Color.white;
+        }
     }
 }

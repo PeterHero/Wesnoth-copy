@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public Player Player { get; set; }
+
+    public SpriteRenderer circle; // get component at the start and then use it
+
     public string UnitTypeName { get; set; }
 
     public int MaxHP { get; set; }
@@ -73,5 +77,7 @@ public class Unit : MonoBehaviour
             CurrentMovement = 0;
             CanAttack = false;
         }
+
+        circle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
     }
 }

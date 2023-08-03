@@ -11,8 +11,9 @@ public class Battle : MonoBehaviour
     public Unit spearmanPrefab;
     public Unit archerPrefab;
 
-    List<GameObject> unitsObjects = new List<GameObject>();
-    List<Unit> units = new List<Unit>();
+    List<Player> players = new List<Player>();
+    public Player playerOnTurn;
+    int playerOnTurnIndex;
 
     public Battle()
     {
@@ -63,8 +64,7 @@ public class Battle : MonoBehaviour
     {
         Debug.Log($"{deadUnit} was killed by {killerUnit}");
 
-        unitsObjects.Remove(deadUnit.gameObject);
-        units.Remove(deadUnit);
+        deadUnit.Player.units.Remove(deadUnit);
         Destroy(deadUnit.gameObject);
 
         if (killerUnit != null)
@@ -74,19 +74,46 @@ public class Battle : MonoBehaviour
 
     }
 
-    public void CreateUnit(Unit unit, int x, int y)
+    public void CreateUnit(Unit unit, int x, int y, Player player)
     {
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         newUnit.setup(true);
-        units.Add(newUnit);
+        newUnit.Player = player;
+        newUnit.circle.color = newUnit.Player.color;
+        player.units.Add(newUnit);
     }
 
-    public void GenerateUnits()
+    public void PrepareBattle()
     {
-        CreateUnit(archerPrefab, 1, 1);
-        CreateUnit(archerPrefab, 1, 2);
-        CreateUnit(spearmanPrefab, 2, 3);
+        players.Add(new Player("The Elf Lord", Color.green));
+        players.Add(new Player("The Human King", Color.blue));
+
+        CreateUnit(archerPrefab, 1, 1, players[0]);
+        CreateUnit(archerPrefab, 1, 2, players[0]);
+        CreateUnit(spearmanPrefab, 2, 3, players[1]);
+
+        playerOnTurnIndex = 0;
+        playerOnTurn = players[playerOnTurnIndex];
+    }
+
+    public void StartTurn()
+    {
+        
+    }
+
+    public void EndTurn()
+    {
+        foreach (Unit unit in playerOnTurn.units)
+        {
+            unit.CurrentMovement = unit.MaxMovement;
+            unit.CanAttack = true;
+        }
+
+        playerOnTurnIndex = (playerOnTurnIndex + 1) % players.Count;
+        playerOnTurn = players[playerOnTurnIndex];
+
+        StartTurn();
     }
 }

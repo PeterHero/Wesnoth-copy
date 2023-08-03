@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         battle.gridManager = gridManager;
 
         gridManager.GenerateMap();
-        battle.GenerateUnits();
+        battle.PrepareBattle();
     }
 
     // Update is called once per frame
