@@ -9,7 +9,11 @@ public class Battle : MonoBehaviour
     public GridManager gridManager;
 
     public Unit spearmanPrefab;
+    public Unit bowmanPrefab;
+    public Unit swordsmanPrefab;
+    public Unit fighterPrefab;
     public Unit archerPrefab;
+    public Unit heroPrefab;
 
     List<Player> players = new List<Player>();
     public Player playerOnTurn;
@@ -78,9 +82,9 @@ public class Battle : MonoBehaviour
     {
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
-        newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         newUnit.Player = player;
         newUnit.setup(true);
+        newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         player.units.Add(newUnit);
     }
 
@@ -89,9 +93,8 @@ public class Battle : MonoBehaviour
         players.Add(new Player("The Elf Lord", Color.green));
         players.Add(new Player("The Human King", Color.blue));
 
-        CreateUnit(archerPrefab, 1, 1, players[0]);
-        CreateUnit(archerPrefab, 1, 2, players[0]);
-        CreateUnit(spearmanPrefab, 2, 3, players[1]);
+        CreateUnit(heroPrefab, 1, 1, players[0]);
+        CreateUnit(swordsmanPrefab, 3, 3, players[1]);
 
         playerOnTurnIndex = 0;
         playerOnTurn = players[playerOnTurnIndex];

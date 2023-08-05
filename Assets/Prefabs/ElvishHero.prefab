@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4257764337188325935}
   - component: {fileID: -4651826563060016699}
   m_Layer: 6
-  m_Name: ElvishArcher
+  m_Name: ElvishHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1692952863
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 43b43412b7a58c643ad341c02747d7c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 642327843be8f5a439739bf39cbdeb8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,30 +99,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
-  UnitTypeName: Elvish Archer
-  MaxHP: 29
-  MaxMovement: 6
+  UnitTypeName: Elvish Hero
+  MaxHP: 51
+  MaxMovement: 5
   MPCastle: 1
   MPFlat: 1
   MPForest: 1
   MPHills: 2
   MPVillage: 1
   MPWater: 3
-  MaxXP: 44
-  Level: 1
+  MaxXP: 90
+  Level: 2
   DefenceCastle: 60
   DefenceFlat: 40
-  DefenceForest: 70
+  DefenceForest: 60
   DefenceHills: 50
   DefenceVillage: 60
   DefenceWater: 20
   Attack1Name: sword
-  Attack1Damage: 5
-  Attack1Hits: 2
+  Attack1Damage: 8
+  Attack1Hits: 4
   Attack1AttackForm: 0
   Attack2Name: bow
-  Attack2Damage: 5
-  Attack2Hits: 4
+  Attack2Damage: 6
+  Attack2Hits: 3
   Attack2AttackForm: 1
 --- !u!1 &7469782877487186562
 GameObject:

@@ -810,8 +810,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
   gridManager: {fileID: 0}
-  spearmanPrefab: {fileID: 2466213797818007258, guid: 6c23d92b6776bf449b8060c8907c9dab, type: 3}
-  archerPrefab: {fileID: 3837807521762785393, guid: baa3f9846c71f6e49a888a1ee6707450, type: 3}
+  spearmanPrefab: {fileID: -8399163438737066183, guid: 6c23d92b6776bf449b8060c8907c9dab, type: 3}
+  bowmanPrefab: {fileID: -276755099726280342, guid: 9104607fff143334d8f711662b988b94, type: 3}
+  swordsmanPrefab: {fileID: -1386075292228230374, guid: cd7af6db14538fd4c9193288ea9731a5, type: 3}
+  fighterPrefab: {fileID: -4651826563060016699, guid: 101bb1094def3cf41befa5e360e0aaf1, type: 3}
+  archerPrefab: {fileID: -4651826563060016699, guid: baa3f9846c71f6e49a888a1ee6707450, type: 3}
+  heroPrefab: {fileID: -4651826563060016699, guid: 405103152a5893842bb3ff0afa2da34b, type: 3}
 --- !u!114 &693104119
 MonoBehaviour:
   m_ObjectHideFlags: 0

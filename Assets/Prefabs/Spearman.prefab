@@ -93,8 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1116262807350016196}
-  - component: {fileID: 2466213797818007258}
   - component: {fileID: 1017704913204511206}
+  - component: {fileID: -8399163438737066183}
   m_Layer: 6
   m_Name: Spearman
   m_TagString: Untagged
@@ -118,18 +118,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2466213797818007258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1255362895475547433}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66bea3aaeee596418b6e214bc873520, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1017704913204511206
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -182,3 +170,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8399163438737066183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255362895475547433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5db420958da930498644daa961cf459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circle: {fileID: 0}
+  UnitTypeName: Spearman
+  MaxHP: 36
+  MaxMovement: 5
+  MPCastle: 1
+  MPFlat: 1
+  MPForest: 2
+  MPHills: 2
+  MPVillage: 1
+  MPWater: 3
+  MaxXP: 42
+  Level: 1
+  DefenceCastle: 61
+  DefenceFlat: 40
+  DefenceForest: 50
+  DefenceHills: 50
+  DefenceVillage: 60
+  DefenceWater: 20
+  Attack1Name: spear
+  Attack1Damage: 7
+  Attack1Hits: 3
+  Attack1AttackForm: 0
+  Attack2Name: 
+  Attack2Damage: 0
+  Attack2Hits: 0
+  Attack2AttackForm: 0
