@@ -14,7 +14,20 @@ public class Unit : MonoBehaviour
     private int currentHP;
     public int CurrentHP { get => currentHP; protected set { currentHP = value; } }
     public int MaxMovement { get; set; }
-    public int CurrentMovement { get; set; }
+    private int currentMovement;
+    public int CurrentMovement {
+        get => currentMovement;
+        set 
+        {
+            if (value == MaxMovement)
+                circle.color = Player.color;
+            else if (value == 0)
+                circle.color = Color.red;
+            else
+                circle.color = Color.yellow;
+
+            currentMovement = value;
+        } }
 
     public bool CanAttack { get; set; }
 
@@ -29,11 +42,6 @@ public class Unit : MonoBehaviour
     public int Resistence { get; set; }
 
     public List<Attack> Attacks = new List<Attack>();
-
-    public Unit()
-    {
-        
-    }
 
     // Reduces currentHP by damage done. Returns true if the Unit died, if it is alive return false.
     private bool takeDamage(int damage)
@@ -66,6 +74,8 @@ public class Unit : MonoBehaviour
 
     public void setup(bool isAvaliable = false)
     {
+        circle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+
         CurrentHP = MaxHP;
         if (isAvaliable)
         {
@@ -77,7 +87,5 @@ public class Unit : MonoBehaviour
             CurrentMovement = 0;
             CanAttack = false;
         }
-
-        circle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
     }
 }

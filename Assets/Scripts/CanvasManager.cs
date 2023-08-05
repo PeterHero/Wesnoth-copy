@@ -11,6 +11,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text movement;
     [SerializeField] private TMP_Text defence;
     [SerializeField] private TMP_Text level;
+    [SerializeField] private TMP_Text canAttack;
 
     public string Type { set { type.text = value; }}
     public string Health { set { health.text = value; }}
@@ -18,4 +19,5 @@ public class CanvasManager : MonoBehaviour
     public string Movement { set { movement.text = value; }}
     public string Defence { set { defence.text = value; }}
     public string Level { set { level.text = value; }}
+    public string CanAttack { set { canAttack.text = value; } }
 }

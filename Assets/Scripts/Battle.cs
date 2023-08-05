@@ -79,9 +79,8 @@ public class Battle : MonoBehaviour
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
-        newUnit.setup(true);
         newUnit.Player = player;
-        newUnit.circle.color = newUnit.Player.color;
+        newUnit.setup(true);
         player.units.Add(newUnit);
     }
 
@@ -109,6 +108,7 @@ public class Battle : MonoBehaviour
         {
             unit.CurrentMovement = unit.MaxMovement;
             unit.CanAttack = true;
+            unit.circle.color = playerOnTurn.color;
         }
 
         playerOnTurnIndex = (playerOnTurnIndex + 1) % players.Count;

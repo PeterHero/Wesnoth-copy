@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.Tilemaps;
 using UnityEngine.WSA;
 
@@ -47,6 +48,7 @@ public class GridManager : MonoBehaviour
         canvasManager.Movement = $"MP {unit.CurrentMovement}/{unit.MaxMovement}"; ;
         canvasManager.Defence = $"def {unit.Defence} %";
         canvasManager.Level = $"lvl {unit.Level}";
+        canvasManager.CanAttack = $"Can attack? {(unit.CanAttack ? "yes" : "no")}";
     }
 
     public void TileHovered(Tile tile)
@@ -144,6 +146,7 @@ public class GridManager : MonoBehaviour
         oldTile.unit = null;
 
         newTile.unit.setDefense(newTile.terrain);
+        newTile.unit.circle.color = (newTile.unit.CurrentMovement == 0) ? Color.red : Color.yellow;
     }
 
     private void fillGenerateMap()
