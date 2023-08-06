@@ -68,6 +68,12 @@ public class Battle : MonoBehaviour
     {
         Debug.Log($"{deadUnit} was killed by {killerUnit}");
 
+        if (deadUnit.isHero)
+        {
+            // the game ends
+            gridManager.tileColor = Color.grey;
+        }
+
         deadUnit.Player.units.Remove(deadUnit);
         Destroy(deadUnit.gameObject);
 
@@ -78,12 +84,12 @@ public class Battle : MonoBehaviour
 
     }
 
-    public void CreateUnit(Unit unit, int x, int y, Player player)
+    public void CreateUnit(Unit unit, int x, int y, Player player, bool isAvaliable = false, bool isHero = false)
     {
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.Player = player;
-        newUnit.setup(true);
+        newUnit.setup(isAvaliable, isHero);
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         player.units.Add(newUnit);
     }
@@ -93,8 +99,8 @@ public class Battle : MonoBehaviour
         players.Add(new Player("The Elf Lord", Color.green));
         players.Add(new Player("The Human King", Color.blue));
 
-        CreateUnit(heroPrefab, 1, 1, players[0]);
-        CreateUnit(swordsmanPrefab, 3, 3, players[1]);
+        CreateUnit(heroPrefab, 9, 0, players[0], true, true);
+        CreateUnit(swordsmanPrefab, 0, 19, players[1], true, true);
 
         playerOnTurnIndex = 0;
         playerOnTurn = players[playerOnTurnIndex];
@@ -107,6 +113,8 @@ public class Battle : MonoBehaviour
 
     public void EndTurn()
     {
+        gridManager.isActiveUnitSet = false;
+
         foreach (Unit unit in playerOnTurn.units)
         {
             unit.CurrentMovement = unit.MaxMovement;

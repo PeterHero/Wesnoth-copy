@@ -6,7 +6,9 @@ public class Unit : MonoBehaviour
 {
     public Player Player { get; set; }
 
-    public SpriteRenderer circle; // get component at the start and then use it
+    public SpriteRenderer circle;
+
+    public bool isHero { get; set; }
 
     public string UnitTypeName;
 
@@ -97,8 +99,10 @@ public class Unit : MonoBehaviour
         Defence = defence[terrain];
     }
 
-    public void setup(bool isAvaliable = false)
+    public void setup(bool isAvaliable, bool isHero)
     {
+        this.isHero = isHero;
+
         movementCost.Add(Tile.TerrainType.castle, MPCastle);
         movementCost.Add(Tile.TerrainType.flat, MPFlat);
         movementCost.Add(Tile.TerrainType.forest, MPForest);

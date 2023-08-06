@@ -12,6 +12,8 @@ public class GridManager : MonoBehaviour
     public CanvasManager canvasManager;
     public Battle battle;
 
+    public Color tileColor = Color.white;
+
     [SerializeField] private Tile grass;
     [SerializeField] private Tile forest;
     [SerializeField] private Tile hills;
@@ -22,11 +24,11 @@ public class GridManager : MonoBehaviour
 
     private GameObject highlightObject;
 
-    private Tile[,] generateMap = new Tile[10,10];
+    private Tile[,] generateMap = new Tile[10,20];
 
     public Dictionary<Vector2Int, Tile> tiles;
 
-    private Vector2Int ActiveTile;
+    public Vector2Int ActiveTile;
 
     private Vector2Int activeUnit;
     private Vector2Int ActiveUnit
@@ -38,7 +40,7 @@ public class GridManager : MonoBehaviour
             isActiveUnitSet = true;
         }
     }
-    public bool isActiveUnitSet;
+    public bool isActiveUnitSet { get; set; }
 
     private void displayUnitStats(Unit unit)
     {
@@ -49,6 +51,7 @@ public class GridManager : MonoBehaviour
         canvasManager.Defence = $"def {unit.Defence} %";
         canvasManager.Level = $"lvl {unit.Level}";
         canvasManager.CanAttack = $"Can attack? {(unit.CanAttack ? "yes" : "no")}";
+        canvasManager.IsHero = (unit.isHero) ? "Hero" : "";
     }
 
     public void TileHovered(Tile tile)
@@ -153,13 +156,41 @@ public class GridManager : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 20; j++)
             {
-                generateMap[i, j] = (j == 4 || j == 5) ? hills : grass;
+                generateMap[i, j] = grass;
             }
         }
 
-        generateMap[3, 3] = forest;
+        generateMap[9, 0] = road;
+        generateMap[9, 1] = road;
+        generateMap[8, 0] = road;
+        generateMap[8, 1] = road;
+
+        generateMap[0, 19] = road;
+        generateMap[1, 19] = road;
+        generateMap[0, 18] = road;
+        generateMap[1, 18] = road;
+
+        generateMap[0, 0] = water;
+        generateMap[0, 1] = water;
+        generateMap[1, 2] = water;
+        generateMap[1, 3] = water;
+        generateMap[2, 4] = water;
+        generateMap[2, 5] = water;
+        generateMap[3, 6] = water;
+        generateMap[4, 8] = water;
+        generateMap[4, 9] = water;
+        generateMap[5, 10] = water;
+        generateMap[5, 11] = water;
+        generateMap[6, 13] = water;
+        generateMap[7, 14] = water;
+        generateMap[7, 15] = water;
+        generateMap[8, 16] = water;
+        generateMap[8, 17] = water;
+        generateMap[9, 18] = water;
+        generateMap[9, 19] = water;
+
     }
 
     public void GenerateMap()
@@ -200,7 +231,7 @@ public class GridManager : MonoBehaviour
     {
         foreach (Tile t in tiles.Values)
         {
-            t.GetComponent<SpriteRenderer>().color = Color.white;
+            t.GetComponent<SpriteRenderer>().color = tileColor;
         }
     }
 }
