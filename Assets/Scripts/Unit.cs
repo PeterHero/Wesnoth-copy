@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
 
     public string UnitTypeName;
 
+    public int Cost;
+
     public int MaxHP;
     private int currentHP;
     public int CurrentHP { get => currentHP; protected set { currentHP = value; } }

@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   UnitTypeName: Elvish Fighter
+  Cost: 14
   MaxHP: 33
   MaxMovement: 5
   MPCastle: 1

@@ -8,9 +8,9 @@ using UnityEngine.WSA;
 
 public class GridManager : MonoBehaviour
 {
-    public Grid grid;
-    public CanvasManager canvasManager;
-    public Battle battle;
+    public Grid grid { get; set; }
+    public UIManager UIManager { get; set; }
+    public Battle battle { get; set; }
 
     public Color tileColor = Color.white;
 
@@ -28,6 +28,8 @@ public class GridManager : MonoBehaviour
 
     public Dictionary<Vector2Int, Tile> tiles;
 
+    public bool ActionsDisabled { get; set; }
+
     public Vector2Int ActiveTile;
 
     private Vector2Int activeUnit;
@@ -42,22 +44,13 @@ public class GridManager : MonoBehaviour
     }
     public bool isActiveUnitSet { get; set; }
 
-    private void displayUnitStats(Unit unit)
-    {
-        canvasManager.Type = unit.UnitTypeName;
-        canvasManager.Health = $"HP {unit.CurrentHP}/{unit.MaxHP}";
-        canvasManager.Experience = $"XP {unit.CurrentXP}/{unit.MaxXP}";
-        canvasManager.Movement = $"MP {unit.CurrentMovement}/{unit.MaxMovement}"; ;
-        canvasManager.Defence = $"def {unit.Defence} %";
-        canvasManager.Level = $"lvl {unit.Level}";
-        canvasManager.CanAttack = $"Can attack? {(unit.CanAttack ? "yes" : "no")}";
-        canvasManager.IsHero = (unit.isHero) ? "Hero" : "";
-    }
-
     public void TileHovered(Tile tile)
     {
         highlightObject.transform.position = grid.CellToWorld(new Vector3Int(tile.coordinates.x, tile.coordinates.y));
-        
+
+        if (ActionsDisabled)
+            return;
+
         if (!isActiveUnitSet)
         {
             CleanTileColoring();
@@ -65,7 +58,7 @@ public class GridManager : MonoBehaviour
 
         if (tile.unit != null)
         {
-            displayUnitStats(tile.unit);
+            UIManager.displayUnitStats(tile.unit);
             if (!isActiveUnitSet)
             {
                 CleanTileColoring();
@@ -93,6 +86,9 @@ public class GridManager : MonoBehaviour
 
     public void TileClicked(Tile tile)
     {
+        if (ActionsDisabled)
+            return;
+
         ActiveTile = tile.coordinates;
 
         CleanTileColoring();

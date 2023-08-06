@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Battle : MonoBehaviour
 {
-    public Grid grid;
-    public GridManager gridManager;
+    public Grid grid { get; set; }
+    public GridManager gridManager { get; set; }
+    public UIManager UIManager { get; set; }
 
     public Unit spearmanPrefab;
     public Unit bowmanPrefab;
@@ -18,11 +19,6 @@ public class Battle : MonoBehaviour
     List<Player> players = new List<Player>();
     public Player playerOnTurn;
     int playerOnTurnIndex;
-
-    public Battle()
-    {
-
-    }
 
     public void Fight(Unit attacker, Attack attackerAttack, Unit defender, Attack defenderAttack = null)
     {
@@ -94,21 +90,32 @@ public class Battle : MonoBehaviour
         player.units.Add(newUnit);
     }
 
+    public void SummonHero(Unit hero, Player player)
+    {
+        CreateUnit(hero, player.homeTile.x, player.homeTile.y, player, true, true);
+
+    }
+
     public void PrepareBattle()
     {
-        players.Add(new Player("The Elf Lord", Color.green));
-        players.Add(new Player("The Human King", Color.blue));
+        players.Add(new Player("The Elf Lord", Color.green, new Vector2Int(9,0)));
+        players[0].recruitableUnits.Add(fighterPrefab);
+        players[0].recruitableUnits.Add(archerPrefab);
+        players.Add(new Player("The Human King", Color.blue, new Vector2Int(0, 19)));
+        players[1].recruitableUnits.Add(spearmanPrefab);
+        players[1].recruitableUnits.Add(bowmanPrefab);
 
-        CreateUnit(heroPrefab, 9, 0, players[0], true, true);
-        CreateUnit(swordsmanPrefab, 0, 19, players[1], true, true);
+        SummonHero(heroPrefab, players[0]);
+        SummonHero(swordsmanPrefab, players[1]);
 
         playerOnTurnIndex = 0;
         playerOnTurn = players[playerOnTurnIndex];
+        UIManager.DisplayPlayerStats(playerOnTurn);
     }
 
     public void StartTurn()
     {
-        
+        UIManager.DisplayPlayerStats(playerOnTurn);
     }
 
     public void EndTurn()
@@ -126,5 +133,48 @@ public class Battle : MonoBehaviour
         playerOnTurn = players[playerOnTurnIndex];
 
         StartTurn();
+    }
+
+    public void recruitValueChanged(int value)
+    {
+        UIManager.recruitValueChanged(value, playerOnTurn);
+    }
+
+    public void OpenRecruit()
+    {
+        if (gridManager.tiles[playerOnTurn.homeTile].unit != null &&
+            gridManager.tiles[playerOnTurn.homeTile].unit.isHero)
+        {
+            UIManager.recruitPanel.SetActive(true);
+            UIManager.displayUnitStats(playerOnTurn.recruitableUnits[0], true);
+            gridManager.ActionsDisabled = true;
+        }
+    }
+
+    public void Recruit()
+    {
+        Unit unitToRecruit = playerOnTurn.recruitableUnits[UIManager.recruitableUnits.value];
+
+        if (unitToRecruit.Cost > playerOnTurn.coins)
+            return;
+
+        List<Vector2Int> adjecentTiles = HexMap.GetAdjencentTiles(playerOnTurn.homeTile);
+        foreach (Vector2Int v in adjecentTiles)
+        {
+            Tile thisTile = gridManager.GetTileAtPosition(v);
+            if (thisTile == null)
+                continue;
+
+            if (gridManager.tiles[v].unit == null)
+            {
+                CreateUnit(unitToRecruit, v.x, v.y, playerOnTurn);
+                playerOnTurn.coins -= unitToRecruit.Cost;
+                UIManager.DisplayPlayerStats(playerOnTurn);
+                UIManager.recruitPanel.SetActive(false);
+                gridManager.ActionsDisabled = false;
+                return;
+            }
+        }
+
     }
 }

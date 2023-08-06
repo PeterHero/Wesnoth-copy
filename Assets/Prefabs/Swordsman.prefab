@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   UnitTypeName: Swordsman
+  Cost: 29
   MaxHP: 55
   MaxMovement: 5
   MPCastle: 1

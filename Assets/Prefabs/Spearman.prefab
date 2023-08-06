@@ -184,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   UnitTypeName: Spearman
+  Cost: 14
   MaxHP: 36
   MaxMovement: 5
   MPCastle: 1
