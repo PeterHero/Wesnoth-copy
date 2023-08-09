@@ -939,8 +939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ReferencePixelsPerUnit: 50
+  m_ScaleFactor: 0.55
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -1774,7 +1774,7 @@ MonoBehaviour:
   hills: {fileID: 3187024639105318840, guid: 98c0f9baddb443b43b212c2d81536737, type: 3}
   water: {fileID: 1515769446353660791, guid: ac4fb4334270793459dfa4041a4bd862, type: 3}
   road: {fileID: 7157659568997220913, guid: 503baec031ea70c42a85731da49ac2c0, type: 3}
-  village: {fileID: 1458305669684933312, guid: 5cd9b281ba3e5df4a84733a4a84c68e4, type: 3}
+  village: {fileID: -3227176209919546237, guid: 5cd9b281ba3e5df4a84733a4a84c68e4, type: 3}
   highlight: {fileID: 779876822630184457, guid: 36e08e6453552db4d8bd3c3565f24e7c, type: 3}
   ActiveTile: {x: 0, y: 0}
 --- !u!114 &693104118

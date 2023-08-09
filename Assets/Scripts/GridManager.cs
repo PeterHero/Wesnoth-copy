@@ -144,8 +144,17 @@ public class GridManager : MonoBehaviour
         newTile.unit = oldTile.unit;
         oldTile.unit = null;
 
+        if (newTile.terrain == Tile.TerrainType.village)
+        {
+            newTile.unit.CurrentMovement = 0;
+            if (((Village)newTile).Player != null)
+                ((Village)newTile).Player.controlledVillages--;
+            ((Village)newTile).Player = battle.playerOnTurn;
+            ((Village)newTile).Player.controlledVillages++;
+        }
+
         newTile.unit.setDefense(newTile.terrain);
-        newTile.unit.circle.color = (newTile.unit.CurrentMovement == 0) ? Color.red : Color.yellow;
+        newTile.unit.circle.color = (newTile.unit.CurrentMovement == 0) ? Color.red : Color.yellow;    
     }
 
     private void fillGenerateMap()
@@ -186,6 +195,12 @@ public class GridManager : MonoBehaviour
         generateMap[8, 17] = water;
         generateMap[9, 18] = water;
         generateMap[9, 19] = water;
+
+        generateMap[8, 5] = village;
+        generateMap[4, 1] = village;
+        generateMap[5, 18] = village;
+        generateMap[1, 14] = village;
+
 
     }
 

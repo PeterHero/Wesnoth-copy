@@ -7,13 +7,13 @@ public class Tile : MonoBehaviour
     public enum TileState { unseen, open, closed}
     public enum TerrainType { castle, flat, forest, hills, village, water}
 
-    public GridManager gridManager;
-    public Vector2Int coordinates;
+    public GridManager gridManager { get; set; }
+    public Vector2Int coordinates { get; set; }
     public TerrainType terrain;
-    public Unit unit;
+    public Unit unit { get; set; }
 
-    public int distance;
-    public TileState tileState;
+    public int distance { get; set; }
+    public TileState tileState { get; set; }
 
     public Tile(GridManager gridManager, Vector2Int v)
     {

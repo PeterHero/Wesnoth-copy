@@ -10,6 +10,7 @@ public class Player
         this.color = color;
         coins = 50;
         this.homeTile = homeTile;
+        controlledVillages = 0;
     }
 
     public string playerName;
@@ -19,4 +20,7 @@ public class Player
     public Vector2Int homeTile;
 
     public int coins { get; set; }
+    public int baseIncome = 2;
+    public int villageIncome = 2;
+    public int controlledVillages { get; set; }
 }

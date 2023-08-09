@@ -96,6 +96,13 @@ public class Unit : MonoBehaviour
             return false;
     }
 
+    public void Heal(int amount)
+    {
+        CurrentHP += amount;
+        if (CurrentHP > MaxHP)
+            CurrentHP = MaxHP;
+    }
+
     public void setDefense(Tile.TerrainType terrain)
     {
         Defence = defence[terrain];

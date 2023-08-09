@@ -116,6 +116,14 @@ public class Battle : MonoBehaviour
     public void StartTurn()
     {
         UIManager.DisplayPlayerStats(playerOnTurn);
+
+        foreach (Tile tile in gridManager.tiles.Values)
+        {
+            if (tile.terrain == Tile.TerrainType.village && tile.unit != null && tile.unit.Player == playerOnTurn)
+            {
+                tile.unit.Heal(8);
+            }
+        }
     }
 
     public void EndTurn()
@@ -128,6 +136,9 @@ public class Battle : MonoBehaviour
             unit.CanAttack = true;
             unit.circle.color = playerOnTurn.color;
         }
+
+        playerOnTurn.coins += playerOnTurn.baseIncome;
+        playerOnTurn.coins += playerOnTurn.villageIncome * playerOnTurn.controlledVillages;
 
         playerOnTurnIndex = (playerOnTurnIndex + 1) % players.Count;
         playerOnTurn = players[playerOnTurnIndex];
