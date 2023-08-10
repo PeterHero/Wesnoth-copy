@@ -85,9 +85,28 @@ public class Battle : MonoBehaviour
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.Player = player;
+        newUnit.battle = this;
         newUnit.setup(isAvaliable, isHero);
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         player.units.Add(newUnit);
+    }
+
+    public void CreateLevelUpUnit(Unit oldUnit, Unit leveledUnit)
+    {
+        var newUnit = Instantiate(leveledUnit, oldUnit.transform.position, Quaternion.identity);
+        Vector2Int position = new Vector2Int(grid.WorldToCell(oldUnit.transform.position).x, grid.WorldToCell(oldUnit.transform.position).y);
+        gridManager.tiles[position].unit = newUnit;
+
+        newUnit.battle = oldUnit.battle;
+        newUnit.Player = oldUnit.Player;
+        newUnit.CurrentXP = oldUnit.CurrentXP;
+        
+        newUnit.setup(oldUnit.CurrentMovement == oldUnit.MaxMovement, oldUnit.isHero);
+        newUnit.setDefense(gridManager.tiles[position].terrain);
+        newUnit.Player.units.Add(newUnit);
+
+        newUnit.Player.units.Remove(oldUnit);
+        Destroy(oldUnit.gameObject);
     }
 
     public void SummonHero(Unit hero, Player player)

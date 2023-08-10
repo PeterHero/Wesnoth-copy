@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public Battle battle { get; set; }
     public Player Player { get; set; }
 
     public SpriteRenderer circle;
@@ -12,16 +13,17 @@ public class Unit : MonoBehaviour
 
     public string UnitTypeName;
 
+    public Unit levelUpUnit;
+
     public int Cost;
 
     public int MaxHP;
-    private int currentHP;
-    public int CurrentHP { get => currentHP; protected set { currentHP = value; } }
+    public int CurrentHP { get; set; }
     public int MaxMovement;
     private int currentMovement;
     public int CurrentMovement {
         get => currentMovement;
-        set 
+        set
         {
             if (value == MaxMovement)
                 circle.color = Player.color;
@@ -45,7 +47,19 @@ public class Unit : MonoBehaviour
 
     public Dictionary<Tile.TerrainType, int> movementCost = new Dictionary<Tile.TerrainType, int>();
     public int MaxXP;
-    public int CurrentXP { get; set; }
+    private int currentXP;
+    public int CurrentXP {
+        get => currentXP;
+        set
+        {
+            currentXP = value;
+            if (currentXP >= MaxXP)
+            {
+                currentXP -= MaxXP;
+                levelUp();
+            }
+        }
+    }
 
     public int Level;
 
@@ -76,7 +90,7 @@ public class Unit : MonoBehaviour
     private bool takeDamage(int damage)
     {
         
-        currentHP -= damage;
+        CurrentHP -= damage;
         if (CurrentHP <= 0)
             return true;
         else
@@ -94,6 +108,19 @@ public class Unit : MonoBehaviour
         }
         else
             return false;
+    }
+
+    private void levelUp()
+    {
+        if (levelUpUnit == null)
+        {
+            MaxHP += 4;
+            CurrentHP = MaxHP;
+        }
+        else
+        {
+            battle.CreateLevelUpUnit(this, levelUpUnit);
+        }
     }
 
     public void Heal(int amount)
