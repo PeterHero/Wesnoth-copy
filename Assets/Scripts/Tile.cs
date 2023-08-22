@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
     public TerrainType terrain;
     public Unit unit { get; set; }
 
-    public int distance { get; set; }
+    public int distance; //{ get; set; }
     public TileState tileState { get; set; }
 
     public Tile(GridManager gridManager, Vector2Int v)

@@ -78,9 +78,6 @@ public class HexMap
 
     public static void findDistances(Vector2Int startingTile, Dictionary<Vector2Int, Tile> tiles, Unit unit, GridManager gridManager)
     {
-        // Dijkstra
-        // heap of reachable tiles
-
         List<Tile> openTiles = new List<Tile>();
 
         foreach (Tile tile in tiles.Values)
@@ -100,6 +97,30 @@ public class HexMap
             openTiles.RemoveAt(0);
             List<Vector2Int> adjecentTiles = GetAdjencentTiles(currentTile.coordinates);
 
+            bool skip = false;
+
+            // check if tile is controlled
+            foreach (Vector2Int tileCoord in adjecentTiles)
+            {
+                Tile adjecentTile = gridManager.GetTileAtPosition(tileCoord);
+
+                if (adjecentTile == null)
+                    continue;
+
+                if (adjecentTile.unit != null && adjecentTile.unit.Player != unit.Player)
+                {
+                    if (currentTile.distance < unit.CurrentMovement)
+                        currentTile.distance = unit.CurrentMovement;
+                    currentTile.tileState = Tile.TileState.closed;
+                    skip = true;
+                    break;
+                }
+            }
+
+            if (skip)
+                continue;
+
+            // improve distance to adjecent tiles
             foreach (Vector2Int tileCoord in adjecentTiles)
             {
                 Tile adjecentTile = gridManager.GetTileAtPosition(tileCoord);
@@ -112,13 +133,13 @@ public class HexMap
                 {
                     adjecentTile.tileState = Tile.TileState.open;
                     openTiles.Add(adjecentTile);
-                    adjecentTile.distance = possibleDistance; // will be changed based on the terrain
+                    adjecentTile.distance = possibleDistance;
                 }
                 else if (adjecentTile.tileState == Tile.TileState.open)
                 {
-                    if (possibleDistance < adjecentTile.distance) // to change
+                    if (possibleDistance < adjecentTile.distance)
                     {
-                        adjecentTile.distance = possibleDistance; // to change
+                        adjecentTile.distance = possibleDistance;
                     }
                 }
             }

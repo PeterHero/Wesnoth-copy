@@ -77,7 +77,7 @@ public class GridManager : MonoBehaviour
         HexMap.findDistances(startTile, tiles, tiles[startTile].unit, this);
         foreach (Tile t in tiles.Values)
         {
-            if (t.distance > tiles[startTile].unit.CurrentMovement)
+            if (t.distance > tiles[startTile].unit.CurrentMovement || t.distance == -1)
             {
                 t.GetComponent<SpriteRenderer>().color = Color.gray;
             }
@@ -98,7 +98,7 @@ public class GridManager : MonoBehaviour
         {
             if (isActiveUnitSet)
             {
-                if (tiles[ActiveTile].distance <= tiles[ActiveUnit].unit.CurrentMovement)
+                if (tiles[ActiveTile].distance <= tiles[ActiveUnit].unit.CurrentMovement && tiles[ActiveTile].distance != -1)
                 {
                     MoveUnit(tiles[ActiveUnit], tiles[ActiveTile]);
                     isActiveUnitSet = false;

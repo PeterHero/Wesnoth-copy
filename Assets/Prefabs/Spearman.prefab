@@ -194,7 +194,7 @@ MonoBehaviour:
   MPHills: 2
   MPVillage: 1
   MPWater: 3
-  MaxXP: 8
+  MaxXP: 42
   Level: 1
   DefenceCastle: 61
   DefenceFlat: 40
