@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Unity.VisualScripting.FullSerializer;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class Battle : MonoBehaviour
+public class BattleManager : MonoBehaviour
 {
     public Grid grid { get; set; }
     public GridManager gridManager { get; set; }
@@ -26,6 +27,7 @@ public class Battle : MonoBehaviour
     int dayNightPhase { get; set; }
     private const int numberOfDayNightPhases = 6;
 
+    // helper variable
     public List<Attack> responseAttacks = new List<Attack>();
 
     public void Fight(Unit attacker, Attack attackerAttack, Unit defender, Attack defenderAttack = null)
@@ -88,12 +90,33 @@ public class Battle : MonoBehaviour
 
     }
 
+    public List<Attack> GetBestResponseAttacks(List<Attack> attackerAttacks, List<Attack> defenderAttacks)
+    {
+        foreach (Attack attack in attackerAttacks)
+        {
+            Attack bestDefence = null;
+            foreach (Attack defence in defenderAttacks)
+            {
+                if (defence.attackForm == attack.attackForm)
+                {
+                    if (bestDefence == null || (bestDefence.Damage * bestDefence.count < defence.Damage * defence.count))
+                    {
+                        bestDefence = defence;
+                    }
+                }
+            }
+            responseAttacks.Add(bestDefence);
+        }
+
+        return responseAttacks;
+    }
+
     public void CreateUnit(Unit unit, int x, int y, Player player, bool isAvaliable = false, bool isHero = false)
     {
         var newUnit = Instantiate(unit, grid.CellToWorld(new Vector3Int(x, y)), Quaternion.identity);
         gridManager.tiles[new Vector2Int(x, y)].unit = newUnit;
         newUnit.Player = player;
-        newUnit.battle = this;
+        newUnit.battleManager = this;
         newUnit.setup(isAvaliable, isHero);
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
         newUnit.SetNightDayBuff(dayNightPhase);
@@ -106,7 +129,7 @@ public class Battle : MonoBehaviour
         Vector2Int position = new Vector2Int(grid.WorldToCell(oldUnit.transform.position).x, grid.WorldToCell(oldUnit.transform.position).y);
         gridManager.tiles[position].unit = newUnit;
 
-        newUnit.battle = oldUnit.battle;
+        newUnit.battleManager = oldUnit.battleManager;
         newUnit.Player = oldUnit.Player;
         newUnit.CurrentXP = oldUnit.CurrentXP;
         
@@ -124,6 +147,7 @@ public class Battle : MonoBehaviour
 
     }
 
+    // used only on the start of the game
     public void PrepareBattle()
     {
         players.Add(new Player("The Elf Lord", Color.green, new Vector2Int(9,0)));
@@ -157,6 +181,7 @@ public class Battle : MonoBehaviour
         }
     }
 
+    // triggered by UI
     public void EndTurn()
     {
         gridManager.isActiveUnitSet = false;
@@ -202,11 +227,13 @@ public class Battle : MonoBehaviour
         StartTurn();
     }
 
+    // triggered by UI
     public void recruitValueChanged(int value)
     {
         UIManager.RecruitValueChanged(value, playerOnTurn);
     }
 
+    // Triggered by player
     public void OpenRecruit()
     {
         if (gridManager.tiles[playerOnTurn.homeTile].unit != null &&

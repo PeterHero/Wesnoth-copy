@@ -18,6 +18,5 @@ public class Village : Tile
     void Start()
     {
         triangle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-
     }
 }

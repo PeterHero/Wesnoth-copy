@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
 {
     public Grid grid { get; set; }
     public UIManager UIManager { get; set; }
-    public Battle battle { get; set; }
+    public BattleManager battleManager { get; set; }
 
     public Color tileColor = Color.white;
 
@@ -115,7 +115,7 @@ public class GridManager : MonoBehaviour
                 if (tiles[ActiveUnit].unit.CanAttack)
                 {
                     UIManager.battlePanel.SetActive(true);
-                    UIManager.DisplayFightStats(tiles[ActiveUnit].unit, tiles[ActiveTile].unit, out battle.responseAttacks);
+                    UIManager.DisplayFightStats(tiles[ActiveUnit].unit, tiles[ActiveTile].unit);
                     ActionsDisabled = true;
                     
                     // ActiveUnit = attacker, ActiveTile = defender
@@ -126,7 +126,7 @@ public class GridManager : MonoBehaviour
             }
             else
             {
-                if (tiles[ActiveTile].unit.Player != battle.playerOnTurn)
+                if (tiles[ActiveTile].unit.Player != battleManager.playerOnTurn)
                 {
                     isActiveUnitSet = false;
                     return;
@@ -150,7 +150,7 @@ public class GridManager : MonoBehaviour
             newTile.unit.CurrentMovement = 0;
             if (((Village)newTile).Player != null)
                 ((Village)newTile).Player.controlledVillages--;
-            ((Village)newTile).Player = battle.playerOnTurn;
+            ((Village)newTile).Player = battleManager.playerOnTurn;
             ((Village)newTile).Player.controlledVillages++;
         }
 

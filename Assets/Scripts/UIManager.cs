@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public GridManager gridManager { get; set; }
+    public BattleManager battleManager { get; set; }
 
     [SerializeField] private TMP_Text type;
     [SerializeField] private TMP_Text health;
@@ -130,7 +131,7 @@ public class UIManager : MonoBehaviour
         gridManager.ActionsDisabled = false;
     }
 
-    public void DisplayFightStats(Unit attacker, Unit defender, out List<Attack> responseAttacks)
+    public void DisplayFightStats(Unit attacker, Unit defender)
     {
         AttackerName = attacker.UnitTypeName;
         AttackerHP = $"{attacker.CurrentHP}/{attacker.MaxHP} HP";
@@ -156,23 +157,7 @@ public class UIManager : MonoBehaviour
         DefenderHP = $"{defender.CurrentHP}/{defender.MaxHP} HP";
         DefenderXP = $"{defender.CurrentXP}/{defender.MaxXP} XP";
 
-        responseAttacks = new List<Attack>();
-
-        foreach (Attack attack in attacker.Attacks)
-        {
-            Attack bestDefence = null;
-            foreach (Attack defence in defender.Attacks)
-            {
-                if (defence.attackForm == attack.attackForm)
-                {
-                    if (bestDefence == null || (bestDefence.Damage * bestDefence.count < defence.Damage * defence.count))
-                    {
-                        bestDefence = defence;
-                    }
-                }
-            }
-            responseAttacks.Add(bestDefence);
-        }
+        List<Attack> responseAttacks = battleManager.GetBestResponseAttacks(attacker.Attacks, defender.Attacks);
 
         if (responseAttacks[0] != null)
         {

@@ -6,9 +6,13 @@ This project does not take any credit for the idea or graphics used in the game.
 
 This project is created by Petr Hrdina as a semestral project for class Programming 2 on MFF CUNI.
 
+## How to start the game
+
+Import the project into Unity. Project was created on 2021.3 LTS, on it should work on that version of Unity. And hit play.
+
 ## How to play the game
 
-The game has 2 players that take turns. The player on turn can move their units and attack opponents unit. Players can also recruit units by pressing 'r' while the hero of the player is on the tile he was when the game started. Units can attack each other when next to each other - click on your unit and then on the opponent's adjacent unit to open to attack screen.
+The game has 2 players that take turns. The player on turn can move their units and attack opponents unit - by clicking on units. Players can also recruit units by pressing 'r' **while the hero of the player is on the tile he was when the game started**. Units can attack each other only when next to each other - click on your unit and then on the opponent's adjacent unit to open to attack screen.
 
 The game ends when one of the heroes dies.
 
@@ -37,6 +41,19 @@ When player attacks an enemy unit, they get to choose an attack with which it wi
 ### XP
 
 Killing an unit is for 8 xp per level of that unit. If the unit gains more than max xp it heals up to full health and if it can upgrade to a stronger unit it does so.
+
+### Day night phase
+
+Each unit has alingment based on which the unit gains buff or debuff depending on the **time of the day**. Loyal units have buff during the day and debuff during the night, chaotic units are exactly the opposite. And neutral units are... well, neutral.
+
+**6 times of the day**
+
+- Dawn
+- Morning (Day 1/2)
+- Afternoon (Day 2/2)
+- Twilight
+- Midnight (Night 1/2)
+- Late Night (Night 2/2)
 
 ## Last words
 

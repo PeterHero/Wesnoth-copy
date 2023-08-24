@@ -25,7 +25,7 @@ public struct OffsetCoordinates
     public int row;
 }
 
-public class HexMap
+public static class HexMap
 {
     public static OffsetCoordinates AxialToOddq(HexCoordinates hex)
     {

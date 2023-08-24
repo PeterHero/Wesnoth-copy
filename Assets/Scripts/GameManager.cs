@@ -7,28 +7,22 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Grid grid;
     [SerializeField] private GridManager gridManager;
-    [SerializeField] private Battle battle;
+    [SerializeField] private BattleManager battleManager;
     [SerializeField] private UIManager UIManager;
 
-    // Start is called before the first frame update
     void Start()
     {
         gridManager.grid = grid;
         gridManager.UIManager = UIManager;
-        gridManager.battle = battle;
-        battle.grid = grid;
-        battle.gridManager = gridManager;
-        battle.UIManager = UIManager;
+        gridManager.battleManager = battleManager;
+        battleManager.grid = grid;
+        battleManager.gridManager = gridManager;
+        battleManager.UIManager = UIManager;
 
         UIManager.gridManager = gridManager;
+        UIManager.battleManager = battleManager;
 
         gridManager.GenerateMap();
-        battle.PrepareBattle();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        battleManager.PrepareBattle();
     }
 }

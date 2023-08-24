@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
     public static int[] NeutralBuff = { 0, 0, 0, 0, 0, 0 };
     public static int[] ChaoticBuff = { 0, -25, -25, 0, 25, 25 };
 
-    public Battle battle { get; set; }
+    public BattleManager battleManager { get; set; }
     public Player Player { get; set; }
 
     public SpriteRenderer circle;
@@ -127,7 +127,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            battle.CreateLevelUpUnit(this, levelUpUnit);
+            battleManager.CreateLevelUpUnit(this, levelUpUnit);
         }
     }
 
@@ -143,6 +143,7 @@ public class Unit : MonoBehaviour
         Defence = defence[terrain];
     }
 
+    // used only when this unit is created
     public void setup(bool isAvaliable, bool isHero)
     {
         this.isHero = isHero;
@@ -170,7 +171,6 @@ public class Unit : MonoBehaviour
         {
             Attacks.Add(new Attack(Attack2Name, Attack2Damage, Attack2Hits, Attack2AttackForm));
         }
-        //
 
         circle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
 
