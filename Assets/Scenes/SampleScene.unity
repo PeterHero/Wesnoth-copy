@@ -3364,7 +3364,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 869005063}
   gridManager: {fileID: 693104117}
-  battle: {fileID: 693104118}
+  battleManager: {fileID: 693104118}
   UIManager: {fileID: 693104119}
 --- !u!4 &693104116
 Transform:
