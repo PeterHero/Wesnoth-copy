@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Diagnostics.Tracing;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -46,6 +47,10 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] public TMP_Dropdown unitsAttacks;
     [SerializeField] public GameObject battlePanel;
+    
+    [SerializeField] public Image dayNightPanel;
+    [SerializeField] private TMP_Text dayNightText;
+
 
     public string Type { set { type.text = value; }}
     public string Health { set { health.text = value; }}
@@ -78,6 +83,7 @@ public class UIManager : MonoBehaviour
     public string Defender2Name { set { defender2Name.text = value; } }
     public string Defender2Chance { set { defender2Chance.text = value; } }
     public string Defender2Damage { set { defender2Dmg.text = value; } }
+    public string DayNightText { set { dayNightText.text = value; } }
 
     public void displayUnitStats(Unit unit, bool displayCost = false)
     {
@@ -131,13 +137,13 @@ public class UIManager : MonoBehaviour
         AttackerXP = $"{attacker.CurrentXP}/{attacker.MaxXP} XP";
         Attacker1Name = attacker.Attack1Name;
         Attacker1Chance = $"{defender.Defence} %";
-        Attacker1Damage = $"{attacker.Attack1Damage} x {attacker.Attack1Hits}";
+        Attacker1Damage = $"{attacker.Attacks[0].Damage} x {attacker.Attack1Hits}";
         
         if (attacker.Attacks.Count >= 2)
         {
             Attacker2Name = attacker.Attack2Name;
             Attacker2Chance = $"{defender.Defence} %";
-            Attacker2Damage = $"{attacker.Attack2Damage} x {attacker.Attack2Hits}";
+            Attacker2Damage = $"{attacker.Attacks[1].Damage} x {attacker.Attack2Hits}";
         }
         else
         {
@@ -159,7 +165,7 @@ public class UIManager : MonoBehaviour
             {
                 if (defence.attackForm == attack.attackForm)
                 {
-                    if (bestDefence == null || (bestDefence.damage * bestDefence.count < defence.damage * defence.count))
+                    if (bestDefence == null || (bestDefence.Damage * bestDefence.count < defence.Damage * defence.count))
                     {
                         bestDefence = defence;
                     }
@@ -172,7 +178,7 @@ public class UIManager : MonoBehaviour
         {
             Defender1Name = responseAttacks[0].name;
             Defender1Chance = $"{attacker.Defence} %";
-            Defender1Damage = $"{responseAttacks[0].damage}x{responseAttacks[0].count}";
+            Defender1Damage = $"{responseAttacks[0].Damage}x{responseAttacks[0].count}";
         }
         else
         {
@@ -185,7 +191,7 @@ public class UIManager : MonoBehaviour
         {
             Defender2Name = responseAttacks[1].name;
             Defender2Chance = $"{attacker.Defence} %";
-            Defender2Damage = $"{responseAttacks[1].damage}x{responseAttacks[1].count}";
+            Defender2Damage = $"{responseAttacks[1].Damage}x{responseAttacks[1].count}";
         }
         else
         {

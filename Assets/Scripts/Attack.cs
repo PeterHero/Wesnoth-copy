@@ -9,10 +9,23 @@ public class Attack
 
     public string name;
 
-    public int damage;
+    private int damage;
+    public int Damage
+    {
+        get
+        {
+            return damage * (100 + dayNightBuff) / 100;
+        }
+        set
+        {
+            damage = value;
+        }
+    }
     public int count;
 
     public AttackForm attackForm;
+
+    private int dayNightBuff = 0;
 
     public Attack(string name, int damage, int count, AttackForm attackForm)
     {
@@ -20,6 +33,24 @@ public class Attack
         this.damage = damage;
         this.count = count;
         this.attackForm = attackForm;
+    }
+
+    public void SetDayNightBuff(int dayNightPhase, Unit.UnitAlignment alignment)
+    {
+        switch (alignment)
+        {
+            case Unit.UnitAlignment.lawful:
+                dayNightBuff = Unit.LawfulBuff[dayNightPhase];
+                break;
+            case Unit.UnitAlignment.neutral:
+                dayNightBuff = Unit.NeutralBuff[dayNightPhase];
+                break;
+            case Unit.UnitAlignment.chaotic:
+                dayNightBuff = Unit.ChaoticBuff[dayNightPhase];
+                break;
+            default:
+                break;
+        }
     }
 
 }

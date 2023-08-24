@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Battle : MonoBehaviour
 {
@@ -19,6 +22,9 @@ public class Battle : MonoBehaviour
     List<Player> players = new List<Player>();
     public Player playerOnTurn;
     int playerOnTurnIndex;
+
+    int dayNightPhase { get; set; }
+    private const int numberOfDayNightPhases = 6;
 
     public List<Attack> responseAttacks = new List<Attack>();
 
@@ -90,6 +96,7 @@ public class Battle : MonoBehaviour
         newUnit.battle = this;
         newUnit.setup(isAvaliable, isHero);
         newUnit.setDefense(gridManager.tiles[new Vector2Int(x, y)].terrain);
+        newUnit.SetNightDayBuff(dayNightPhase);
         player.units.Add(newUnit);
     }
 
@@ -132,6 +139,9 @@ public class Battle : MonoBehaviour
         playerOnTurnIndex = 0;
         playerOnTurn = players[playerOnTurnIndex];
         UIManager.DisplayPlayerStats(playerOnTurn);
+
+        dayNightPhase = 0;
+        UIManager.dayNightPanel.color = Color.yellow;
     }
 
     public void StartTurn()
@@ -161,7 +171,32 @@ public class Battle : MonoBehaviour
         playerOnTurn.coins += playerOnTurn.baseIncome;
         playerOnTurn.coins += playerOnTurn.villageIncome * playerOnTurn.controlledVillages;
 
-        playerOnTurnIndex = (playerOnTurnIndex + 1) % players.Count;
+        playerOnTurnIndex++;
+        if (playerOnTurnIndex == players.Count)
+        {
+            playerOnTurnIndex = 0;
+            dayNightPhase = (dayNightPhase + 1) % numberOfDayNightPhases;
+            UIManager.DayNightText = $"{dayNightPhase + 1}/{numberOfDayNightPhases}";
+            switch (dayNightPhase)
+            {
+                case 0:
+                    UIManager.dayNightPanel.color = Color.yellow;
+                    break;
+                case 1:
+                    UIManager.dayNightPanel.color = Color.cyan;
+                    break;
+                case 3:
+                    UIManager.dayNightPanel.color = Color.red;
+                    break;
+                case 4:
+                    UIManager.dayNightPanel.color = Color.blue;
+                    break;
+                
+            }
+            foreach (Player player in players)
+                foreach (Unit unit in player.units)
+                    unit.SetNightDayBuff(dayNightPhase);
+        }
         playerOnTurn = players[playerOnTurnIndex];
 
         StartTurn();

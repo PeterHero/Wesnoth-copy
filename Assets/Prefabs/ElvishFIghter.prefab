@@ -100,10 +100,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   UnitTypeName: Elvish Fighter
+  alignment: 1
   levelUpUnit: {fileID: -4651826563060016699, guid: 405103152a5893842bb3ff0afa2da34b, type: 3}
   Cost: 14
   MaxHP: 33
   MaxMovement: 5
+  currentMovement: 0
   MPCastle: 1
   MPFlat: 1
   MPForest: 1

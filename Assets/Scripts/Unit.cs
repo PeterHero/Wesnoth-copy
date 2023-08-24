@@ -1,9 +1,16 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public enum UnitAlignment { lawful, neutral, chaotic}
+
+    public static int[] LawfulBuff = { 0, 25, 25, 0, -25, -25 };
+    public static int[] NeutralBuff = { 0, 0, 0, 0, 0, 0 };
+    public static int[] ChaoticBuff = { 0, -25, -25, 0, 25, 25 };
+
     public Battle battle { get; set; }
     public Player Player { get; set; }
 
@@ -12,6 +19,7 @@ public class Unit : MonoBehaviour
     public bool isHero { get; set; }
 
     public string UnitTypeName;
+    public UnitAlignment alignment;
 
     public Unit levelUpUnit;
 
@@ -104,7 +112,7 @@ public class Unit : MonoBehaviour
 
         if (random > Defence) // is hit
         {
-            return takeDamage(attack.damage * (100 - Resistence) / 100);
+            return takeDamage(attack.Damage * (100 - Resistence) / 100);
         }
         else
             return false;
@@ -176,6 +184,14 @@ public class Unit : MonoBehaviour
         {
             CurrentMovement = 0;
             CanAttack = false;
+        }
+    }
+
+    public void SetNightDayBuff(int dayNightPhase)
+    {
+        foreach (Attack attack in Attacks)
+        {
+            attack.SetDayNightBuff(dayNightPhase, alignment);
         }
     }
 }
