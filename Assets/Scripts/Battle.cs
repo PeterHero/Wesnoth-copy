@@ -204,7 +204,7 @@ public class Battle : MonoBehaviour
 
     public void recruitValueChanged(int value)
     {
-        UIManager.recruitValueChanged(value, playerOnTurn);
+        UIManager.RecruitValueChanged(value, playerOnTurn);
     }
 
     public void OpenRecruit()
@@ -213,7 +213,7 @@ public class Battle : MonoBehaviour
             gridManager.tiles[playerOnTurn.homeTile].unit.isHero)
         {
             UIManager.recruitPanel.SetActive(true);
-            UIManager.displayUnitStats(playerOnTurn.recruitableUnits[0], true);
+            UIManager.DisplayUnitStats(playerOnTurn.recruitableUnits[0], true);
             gridManager.ActionsDisabled = true;
         }
     }

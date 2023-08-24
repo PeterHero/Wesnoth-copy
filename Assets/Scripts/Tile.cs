@@ -15,12 +15,6 @@ public class Tile : MonoBehaviour
     public int distance; //{ get; set; }
     public TileState tileState { get; set; }
 
-    public Tile(GridManager gridManager, Vector2Int v)
-    {
-        this.gridManager = gridManager;
-        coordinates = v;
-    }
-
     private void OnMouseDown()
     {
         gridManager.TileClicked(this);

@@ -4,7 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 using UnityEngine.Tilemaps;
-using UnityEngine.WSA;
 
 public class GridManager : MonoBehaviour
 {
@@ -58,7 +57,7 @@ public class GridManager : MonoBehaviour
 
         if (tile.unit != null)
         {
-            UIManager.displayUnitStats(tile.unit);
+            UIManager.DisplayUnitStats(tile.unit);
             if (!isActiveUnitSet)
             {
                 CleanTileColoring();
@@ -74,7 +73,7 @@ public class GridManager : MonoBehaviour
 
     private void handleUnitDistances(Vector2Int startTile)
     {
-        HexMap.findDistances(startTile, tiles, tiles[startTile].unit, this);
+        HexMap.FindDistances(startTile, tiles, tiles[startTile].unit, this);
         foreach (Tile t in tiles.Values)
         {
             if (t.distance > tiles[startTile].unit.CurrentMovement || t.distance == -1)

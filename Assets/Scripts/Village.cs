@@ -15,9 +15,6 @@ public class Village : Tile
     }
     public SpriteRenderer triangle;
 
-    public Village(GridManager gridManager, Vector2Int v) : base(gridManager, v)
-    {
-    }
     void Start()
     {
         triangle = gameObject.transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();

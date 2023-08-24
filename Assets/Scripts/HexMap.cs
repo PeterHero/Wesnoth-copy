@@ -76,7 +76,7 @@ public class HexMap
         return adjecentTiles;
     }
 
-    public static void findDistances(Vector2Int startingTile, Dictionary<Vector2Int, Tile> tiles, Unit unit, GridManager gridManager)
+    public static void FindDistances(Vector2Int startingTile, Dictionary<Vector2Int, Tile> tiles, Unit unit, GridManager gridManager)
     {
         List<Tile> openTiles = new List<Tile>();
 

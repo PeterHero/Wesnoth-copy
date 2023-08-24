@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
     public string Defender2Damage { set { defender2Dmg.text = value; } }
     public string DayNightText { set { dayNightText.text = value; } }
 
-    public void displayUnitStats(Unit unit, bool displayCost = false)
+    public void DisplayUnitStats(Unit unit, bool displayCost = false)
     {
         Type = unit.UnitTypeName;
         Health = $"HP {unit.CurrentHP}/{unit.MaxHP}";
@@ -113,9 +113,9 @@ public class UIManager : MonoBehaviour
         recruitableUnits.AddOptions(tmpUnits);
     }
 
-    public void recruitValueChanged(int value, Player player)
+    public void RecruitValueChanged(int value, Player player)
     {
-        displayUnitStats(player.recruitableUnits[value], true);
+        DisplayUnitStats(player.recruitableUnits[value], true);
     }
 
     public void CloseRecruit()
