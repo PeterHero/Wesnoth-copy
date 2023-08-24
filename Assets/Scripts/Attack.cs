@@ -16,6 +16,7 @@ public class Attack
 
     public Attack(string name, int damage, int count, AttackForm attackForm)
     {
+        this.name = name;
         this.damage = damage;
         this.count = count;
         this.attackForm = attackForm;

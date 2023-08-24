@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   circle: {fileID: 0}
   UnitTypeName: Elvish Hero
+  levelUpUnit: {fileID: 0}
   Cost: 26
   MaxHP: 51
   MaxMovement: 5

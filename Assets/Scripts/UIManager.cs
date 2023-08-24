@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Diagnostics.Tracing;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,6 +24,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] public TMP_Dropdown recruitableUnits;
     [SerializeField] public GameObject recruitPanel;
 
+    [SerializeField] private TMP_Text attackerName;
+    [SerializeField] private TMP_Text attackerHP;
+    [SerializeField] private TMP_Text attackerXP;
+    [SerializeField] private TMP_Text attacker1Name;
+    [SerializeField] private TMP_Text attacker1Chance;
+    [SerializeField] private TMP_Text attacker1Dmg;
+    [SerializeField] private TMP_Text attacker2Name;
+    [SerializeField] private TMP_Text attacker2Chance;
+    [SerializeField] private TMP_Text attacker2Dmg;
+
+    [SerializeField] private TMP_Text defenderName;
+    [SerializeField] private TMP_Text defenderHP;
+    [SerializeField] private TMP_Text defenderXP;
+    [SerializeField] private TMP_Text defender1Name;
+    [SerializeField] private TMP_Text defender1Chance;
+    [SerializeField] private TMP_Text defender1Dmg;
+    [SerializeField] private TMP_Text defender2Name;
+    [SerializeField] private TMP_Text defender2Chance;
+    [SerializeField] private TMP_Text defender2Dmg;
+
+    [SerializeField] public TMP_Dropdown unitsAttacks;
+    [SerializeField] public GameObject battlePanel;
 
     public string Type { set { type.text = value; }}
     public string Health { set { health.text = value; }}
@@ -36,6 +59,25 @@ public class UIManager : MonoBehaviour
 
     public string PlayerOnTurn { set { playerOnTurn.text = value; } }
     public string Coins { set { coins.text = value; } }
+
+    public string AttackerName { set { attackerName.text = value; } }
+    public string AttackerHP { set { attackerHP.text = value; } }
+    public string AttackerXP { set { attackerXP.text = value; } }
+    public string Attacker1Name { set { attacker1Name.text = value; } }
+    public string Attacker1Chance { set { attacker1Chance.text = value; } }
+    public string Attacker1Damage { set { attacker1Dmg.text = value; } }
+    public string Attacker2Name { set { attacker2Name.text = value; } }
+    public string Attacker2Chance { set { attacker2Chance.text = value; } }
+    public string Attacker2Damage { set { attacker2Dmg.text = value; } }
+    public string DefenderName { set { defenderName.text = value; } }
+    public string DefenderHP { set { defenderHP.text = value; } }
+    public string DefenderXP { set { defenderXP.text = value; } }
+    public string Defender1Name { set { defender1Name.text = value; } }
+    public string Defender1Chance { set { defender1Chance.text = value; } }
+    public string Defender1Damage { set { defender1Dmg.text = value; } }
+    public string Defender2Name { set { defender2Name.text = value; } }
+    public string Defender2Chance { set { defender2Chance.text = value; } }
+    public string Defender2Damage { set { defender2Dmg.text = value; } }
 
     public void displayUnitStats(Unit unit, bool displayCost = false)
     {
@@ -74,5 +116,90 @@ public class UIManager : MonoBehaviour
     {
         recruitPanel.SetActive(false);
         gridManager.ActionsDisabled = false;
+    }
+
+    public void CloseBattle()
+    {
+        battlePanel.SetActive(false);
+        gridManager.ActionsDisabled = false;
+    }
+
+    public void DisplayFightStats(Unit attacker, Unit defender, out List<Attack> responseAttacks)
+    {
+        AttackerName = attacker.UnitTypeName;
+        AttackerHP = $"{attacker.CurrentHP}/{attacker.MaxHP} HP";
+        AttackerXP = $"{attacker.CurrentXP}/{attacker.MaxXP} XP";
+        Attacker1Name = attacker.Attack1Name;
+        Attacker1Chance = $"{defender.Defence} %";
+        Attacker1Damage = $"{attacker.Attack1Damage} x {attacker.Attack1Hits}";
+        
+        if (attacker.Attacks.Count >= 2)
+        {
+            Attacker2Name = attacker.Attack2Name;
+            Attacker2Chance = $"{defender.Defence} %";
+            Attacker2Damage = $"{attacker.Attack2Damage} x {attacker.Attack2Hits}";
+        }
+        else
+        {
+            Attacker2Name = "";
+            Attacker2Chance = "";
+            Attacker2Damage = "";
+        }
+
+        DefenderName = defender.UnitTypeName;
+        DefenderHP = $"{defender.CurrentHP}/{defender.MaxHP} HP";
+        DefenderXP = $"{defender.CurrentXP}/{defender.MaxXP} XP";
+
+        responseAttacks = new List<Attack>();
+
+        foreach (Attack attack in attacker.Attacks)
+        {
+            Attack bestDefence = null;
+            foreach (Attack defence in defender.Attacks)
+            {
+                if (defence.attackForm == attack.attackForm)
+                {
+                    if (bestDefence == null || (bestDefence.damage * bestDefence.count < defence.damage * defence.count))
+                    {
+                        bestDefence = defence;
+                    }
+                }
+            }
+            responseAttacks.Add(bestDefence);
+        }
+
+        if (responseAttacks[0] != null)
+        {
+            Defender1Name = responseAttacks[0].name;
+            Defender1Chance = $"{attacker.Defence} %";
+            Defender1Damage = $"{responseAttacks[0].damage}x{responseAttacks[0].count}";
+        }
+        else
+        {
+            Defender1Name = "";
+            Defender1Chance = "";
+            Defender1Damage = "";
+        }
+
+        if (attacker.Attack2Name != "" && responseAttacks[1] != null)
+        {
+            Defender2Name = responseAttacks[1].name;
+            Defender2Chance = $"{attacker.Defence} %";
+            Defender2Damage = $"{responseAttacks[1].damage}x{responseAttacks[1].count}";
+        }
+        else
+        {
+            Defender2Name = "";
+            Defender2Chance = "";
+            Defender2Damage = "";
+        }
+
+        List<string> tmpAttacks = new List<string>();
+        foreach (Attack attack in attacker.Attacks)
+        {
+            tmpAttacks.Add(attack.name);
+        }
+        unitsAttacks.ClearOptions();
+        unitsAttacks.AddOptions(tmpAttacks);
     }
 }

@@ -33,7 +33,7 @@ public class GridManager : MonoBehaviour
     public Vector2Int ActiveTile;
 
     private Vector2Int activeUnit;
-    private Vector2Int ActiveUnit
+    public Vector2Int ActiveUnit
     {
         get => activeUnit;
         set
@@ -115,10 +115,12 @@ public class GridManager : MonoBehaviour
             {
                 if (tiles[ActiveUnit].unit.CanAttack)
                 {
+                    UIManager.battlePanel.SetActive(true);
+                    UIManager.DisplayFightStats(tiles[ActiveUnit].unit, tiles[ActiveTile].unit, out battle.responseAttacks);
+                    ActionsDisabled = true;
+                    
                     // ActiveUnit = attacker, ActiveTile = defender
-                    battle.Fight(tiles[ActiveUnit].unit, tiles[ActiveUnit].unit.Attacks[0], tiles[ActiveTile].unit, tiles[ActiveTile].unit.Attacks[0]);
-                    tiles[ActiveUnit].unit.CurrentMovement = 0;
-                    tiles[ActiveUnit].unit.CanAttack = false;
+                    
                 }
                 
                 isActiveUnitSet = false;

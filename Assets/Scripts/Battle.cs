@@ -20,6 +20,8 @@ public class Battle : MonoBehaviour
     public Player playerOnTurn;
     int playerOnTurnIndex;
 
+    public List<Attack> responseAttacks = new List<Attack>();
+
     public void Fight(Unit attacker, Attack attackerAttack, Unit defender, Attack defenderAttack = null)
     {
         int attackerCounter = attackerAttack.count;
@@ -205,6 +207,15 @@ public class Battle : MonoBehaviour
                 return;
             }
         }
+    }
 
+    public void AttackButton()
+    {
+        int index = UIManager.unitsAttacks.value;
+
+        Fight(gridManager.tiles[gridManager.ActiveUnit].unit, gridManager.tiles[gridManager.ActiveUnit].unit.Attacks[index], gridManager.tiles[gridManager.ActiveTile].unit, responseAttacks[index]);
+        gridManager.tiles[gridManager.ActiveUnit].unit.CurrentMovement = 0;
+        gridManager.tiles[gridManager.ActiveUnit].unit.CanAttack = false;
+        UIManager.CloseBattle();
     }
 }

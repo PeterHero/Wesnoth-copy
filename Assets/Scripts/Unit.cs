@@ -20,7 +20,7 @@ public class Unit : MonoBehaviour
     public int MaxHP;
     public int CurrentHP { get; set; }
     public int MaxMovement;
-    private int currentMovement;
+    public int currentMovement;
     public int CurrentMovement {
         get => currentMovement;
         set

@@ -102,6 +102,9 @@ public class HexMap
             // check if tile is controlled
             foreach (Vector2Int tileCoord in adjecentTiles)
             {
+                if (currentTile.unit == unit)
+                    break;
+
                 Tile adjecentTile = gridManager.GetTileAtPosition(tileCoord);
 
                 if (adjecentTile == null)
