@@ -7,9 +7,9 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
-    public Grid grid { get; set; }
-    public UIManager UIManager { get; set; }
-    public BattleManager battleManager { get; set; }
+    [HideInInspector] public Grid grid;
+    [HideInInspector] public UIManager UIManager;
+    [HideInInspector] public BattleManager battleManager;
 
     public Color tileColor = Color.white;
 
@@ -27,7 +27,7 @@ public class GridManager : MonoBehaviour
 
     public Dictionary<Vector2Int, Tile> tiles;
 
-    public bool ActionsDisabled { get; set; }
+    [HideInInspector] public bool ActionsDisabled;
 
     public Vector2Int ActiveTile;
 
@@ -41,7 +41,7 @@ public class GridManager : MonoBehaviour
             isActiveUnitSet = true;
         }
     }
-    public bool isActiveUnitSet { get; set; }
+    [HideInInspector] public bool isActiveUnitSet;
 
     public void TileHovered(Tile tile)
     {

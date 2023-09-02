@@ -19,8 +19,8 @@ public class Player
     public Color color;
     public Vector2Int homeTile;
 
-    public int coins { get; set; }
+    [HideInInspector] public int coins;
     public int baseIncome = 2;
     public int villageIncome = 2;
-    public int controlledVillages { get; set; }
+    [HideInInspector] public int controlledVillages;
 }

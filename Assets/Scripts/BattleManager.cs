@@ -9,9 +9,9 @@ using UnityEngine.UIElements;
 
 public class BattleManager : MonoBehaviour
 {
-    public Grid grid { get; set; }
-    public GridManager gridManager { get; set; }
-    public UIManager UIManager { get; set; }
+    [HideInInspector] public Grid grid;
+    [HideInInspector] public GridManager gridManager;
+    [HideInInspector] public UIManager UIManager;
 
     public Unit spearmanPrefab;
     public Unit bowmanPrefab;
@@ -24,7 +24,7 @@ public class BattleManager : MonoBehaviour
     public Player playerOnTurn;
     int playerOnTurnIndex;
 
-    int dayNightPhase { get; set; }
+    [HideInInspector] int dayNightPhase;
     private const int numberOfDayNightPhases = 6;
 
     // helper variable
@@ -78,6 +78,8 @@ public class BattleManager : MonoBehaviour
         {
             // the game ends
             gridManager.tileColor = Color.grey;
+            UIManager.gameOverPanel.SetActive(true);
+            UIManager.GameOver = $"Game over! The winner is {killerUnit.Player.playerName}";
         }
 
         deadUnit.Player.units.Remove(deadUnit);
@@ -150,10 +152,10 @@ public class BattleManager : MonoBehaviour
     // used only on the start of the game
     public void PrepareBattle()
     {
-        players.Add(new Player("The Elf Lord", Color.green, new Vector2Int(9,0)));
+        players.Add(new Player("Green player", Color.green, new Vector2Int(9,0)));
         players[0].recruitableUnits.Add(fighterPrefab);
         players[0].recruitableUnits.Add(archerPrefab);
-        players.Add(new Player("The Human King", Color.blue, new Vector2Int(0, 19)));
+        players.Add(new Player("Blue player", Color.blue, new Vector2Int(0, 19)));
         players[1].recruitableUnits.Add(spearmanPrefab);
         players[1].recruitableUnits.Add(bowmanPrefab);
 

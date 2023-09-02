@@ -11,12 +11,12 @@ public class Unit : MonoBehaviour
     public static int[] NeutralBuff = { 0, 0, 0, 0, 0, 0 };
     public static int[] ChaoticBuff = { 0, -25, -25, 0, 25, 25 };
 
-    public BattleManager battleManager { get; set; }
-    public Player Player { get; set; }
+    [HideInInspector] public BattleManager battleManager;
+    [HideInInspector] public Player Player;
 
     public SpriteRenderer circle;
 
-    public bool isHero { get; set; }
+    [HideInInspector] public bool isHero;
 
     public string UnitTypeName;
     public UnitAlignment alignment;
@@ -26,7 +26,7 @@ public class Unit : MonoBehaviour
     public int Cost;
 
     public int MaxHP;
-    public int CurrentHP { get; set; }
+    [HideInInspector] public int CurrentHP;
     public int MaxMovement;
     public int currentMovement;
     public int CurrentMovement {
@@ -51,7 +51,7 @@ public class Unit : MonoBehaviour
     public int MPVillage;
     public int MPWater;
 
-    public bool CanAttack { get; set; }
+    [HideInInspector] public bool CanAttack;
 
     public Dictionary<Tile.TerrainType, int> movementCost = new Dictionary<Tile.TerrainType, int>();
     public int MaxXP;
@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
     public int Level;
 
     public Dictionary<Tile.TerrainType, int> defence = new Dictionary<Tile.TerrainType, int>();
-    public int Defence { get; set; }
+    [HideInInspector] public int Defence;
 
     public int DefenceCastle;
     public int DefenceFlat;
@@ -80,7 +80,7 @@ public class Unit : MonoBehaviour
     public int DefenceHills;
     public int DefenceVillage;
     public int DefenceWater;
-    public int Resistence { get; set; }
+    [HideInInspector] public int Resistence;
 
     public List<Attack> Attacks = new List<Attack>();
 

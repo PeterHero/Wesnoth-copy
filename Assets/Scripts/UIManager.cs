@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GridManager gridManager { get; set; }
-    public BattleManager battleManager { get; set; }
+    [HideInInspector] public GridManager gridManager;
+    [HideInInspector] public BattleManager battleManager;
 
     [SerializeField] private TMP_Text type;
     [SerializeField] private TMP_Text health;
@@ -52,6 +52,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] public Image dayNightPanel;
     [SerializeField] private TMP_Text dayNightText;
 
+    [SerializeField] public GameObject gameOverPanel;
+    [SerializeField] private TMP_Text gameOver;
+
 
     public string Type { set { type.text = value; }}
     public string Health { set { health.text = value; }}
@@ -85,6 +88,7 @@ public class UIManager : MonoBehaviour
     public string Defender2Chance { set { defender2Chance.text = value; } }
     public string Defender2Damage { set { defender2Dmg.text = value; } }
     public string DayNightText { set { dayNightText.text = value; } }
+    public string GameOver { set { gameOver.text = value; } }
 
     public void DisplayUnitStats(Unit unit, bool displayCost = false)
     {
@@ -101,7 +105,7 @@ public class UIManager : MonoBehaviour
 
     public void DisplayPlayerStats(Player playerOnTurn)
     {
-        PlayerOnTurn = playerOnTurn.playerName;
+        PlayerOnTurn = $"On turn: {playerOnTurn.playerName}";
         Coins = $"$ {playerOnTurn.coins}";
 
 

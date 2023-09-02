@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// I used some of this website's code to handle hex coordinates systems https://www.redblobgames.com/grids/hexagons/
+
 public struct HexCoordinates
 {
     public HexCoordinates(int x, int y)
@@ -27,6 +29,7 @@ public struct OffsetCoordinates
 
 public static class HexMap
 {
+    // this method is copied from the website
     public static OffsetCoordinates AxialToOddq(HexCoordinates hex)
     {
         int col = hex.x;
@@ -34,6 +37,7 @@ public static class HexMap
         return new OffsetCoordinates(col, row);
     }
 
+    // this method is copied from the website
     public static HexCoordinates OddqToAxial(OffsetCoordinates hex)
     {
         int x = hex.col;
