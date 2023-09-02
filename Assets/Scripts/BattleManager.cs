@@ -94,6 +94,7 @@ public class BattleManager : MonoBehaviour
 
     public List<Attack> GetBestResponseAttacks(List<Attack> attackerAttacks, List<Attack> defenderAttacks)
     {
+        responseAttacks = new List<Attack>();
         foreach (Attack attack in attackerAttacks)
         {
             Attack bestDefence = null;
